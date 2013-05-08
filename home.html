@@ -1,0 +1,84 @@
+<!doctype>
+<html>
+<head>
+	<title>OpenSound</title>
+	<style>
+/**
+* Mini-grid
+* Works anywhere, liquid 100%, no need for .row. Use in modal windows and wherever you can't use Bootstrap's grid
+*/
+.r:before, .r:after {display: table;content: "";line-height: 0;}
+.r:after {clear: both;}
+.r.row {margin-left:0;}
+.s12,.s11,.s10,.s9,.s8,.s7,.s6,.s5,.s4,.s3,.s2,.s1{display:inline-block;margin:0;padding:0 0 0 0;vertical-align:top;}
+.ie7 .s12,.ie7 .s11,.ie7 .s10,.ie7 .s9,.ie7 .s8,.ie7 .s7,.ie7 .s6,.ie7 .s5,.ie7 .s4,.ie7 .s3,.ie7 .s2,.ie7 .s1 {display:block;float:left;}
+.s12{width:99%}.s11{width:90.66666666666666%}.s10{width:82.33333333333334%}.s9{width:74%}.s8{width:65.66666666666665%}.s7{width:57.333333333333336%}.s6{width:49%}.s5{width:40.66666666666667%}.s4{width:32.33333333333332%}.s3{width:24.75713253%}.s2{width:15.666666666666664%}.s1{width:7.333333333333332%}
+@media (max-width: 767px) { /* Mobile */
+  .s1,.s2,.s3,.s4,.s5,.s6,.s7,.s8,.s9,.s10,.s11,.s12 {width:99%;}
+}
+@media (max-width: 979px) and (min-width: 768px) { /* Tablet */
+  .s1,.s2,.s3,.s4,.s5 {width:49.55%;}
+  .s6,.s7,.s8,.s9,.s10,.s11,.s12 {width:96%;margin-left:3.999%;}
+}
+
+
+body {font-family:Arial;}
+	</style>
+</head>
+<body>
+
+	<header class="r">
+		<div class="s6">
+			<h1>OpenSound</h1>
+		</div>
+		<div class="s6">
+			<ul>
+				<li>Hi xaviesteve!</li>
+				<li>Volume <input type="range" id="vol" min="0" max="100" step="1" value="60"></li>
+			</ul>
+		</div>
+	</header>
+
+	<h2>
+		<span id="artist">Manel</span>
+		<span id="track"><!--Teresa Rampell--></span>
+	</h2>
+
+	<div class="r">
+		<div class="s9">
+			<h3>Playlist</h3>
+			<ul id="playlist">
+				<!-- <li></li> -->
+			</ul>
+		</div>
+		<div class="s3">
+			<h3>Devices</h3>
+			<!-- Should detect keywords such as iphone,ipad,tablet,desktop,imac,laptop and return appropriate icons -->
+			<table>
+				<thead>
+					<tr><th>Device</th><th>Buffer</th><th>Active</th></tr>
+				</thead>
+				<thead>
+					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
+				</thead>
+			</table>
+
+			<h3>Settings</h3>
+			<label>Device name</label>
+			<input type="text" id="devicename" value="">
+		</div>
+	</div>
+
+<audio id="audio" src="" controls>
+	Your browser does not support the <code>audio</code> element.
+</audio>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>	
+<script type="text/javascript" src="opensound.js"></script>	
+
+</body>
+</html>
