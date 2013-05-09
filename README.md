@@ -82,8 +82,11 @@ Our main priority is to avoid any setup at all and keep it super simple to start
 
 
 
-Technical Documentation
+API
 ----------------------
+
+Everything is returned as JSON, simplified here for readability.
+
 
 ### /
 
@@ -92,7 +95,7 @@ Returns the HTML view (homepage)
 
 ### /status
 
-Requests JSON status of OpenSound, every 5 seconds:
+Requests JSON status of OpenSound every 5 seconds, a client is considered connected if he sends a status update at least every 5 seconds:
 
 <pre>song: 'folder/path/starting/at/root/mysong.mp3'
 pos: 0 // in seconds
@@ -106,7 +109,7 @@ hash: { // hash is an md5 of the JSON string. If the hash changes, the client wi
 
 ### /playlist
 
-Requests current playlist, called on page load and when the status.hash.playlist changes:
+Requests current playlist, called on page load and when the <code>status.hash.playlist</code> changes:
 
 <pre>[ // list of songs
 	'folder/path/starting/at/root/mysong.mp3'
@@ -117,7 +120,8 @@ Requests current playlist, called on page load and when the status.hash.playlist
 
 ### /clients
 
-Requests connected clients, called on page load and when the status.hash.clients changes.
+Requests connected clients, called on page load and when the <code>status.hash.clients</code> changes.
+
 Only connected clients are shown, but these can be enabled or disabled. If a client doesn't ping the server in 10 seconds the server will consider it disconnected and remove it from the list
 
 <pre>[
@@ -152,6 +156,9 @@ Returns list of files and folders in that path.
 	'othersong.mp3'
 ]</pre>
 
+<hr>
+
+For the following ones, server will return <code>{"status":"1"}</code> when OK or <code>{"status":"shorterror","msg":"Human-friendly explanation of the problem"}</code>:
 
 
 ### /add/folder/path/starting/at/root/mysong.mp3
@@ -166,23 +173,67 @@ Removes song from playlist.
 
 ### /play/folder/path/starting/at/root/mysong.mp3
 
-Plays song.
+Plays song starting at position 0.
 
 
 ### /pause
 
-Pauses song
+Pauses song.
 
 
 ### /pos/134
 
-Moves current track to position, in seconds
+Moves current track to position, in seconds.
 
 
 ### /vol/90
 
-Changes master volume
+Changes master volume.
+
+
+### /client/Xavi+iPhone/on
+
+Enable client.
+
+
+### /client/Xavi+iPhone/off
+
+Disable client.
 
 
 
+## Errors
+
+- "songnotfound": "The song could not be found"
+- "clientnotfound": "The client could not be found"
+- [...]
+
+
+
+
+
+License
+----------------------
+
+Copyright (c) 2013 Xavi Esteve (http://xaviesteve.com) &amp; Marek Suliga (https://github.com/mark81)
+
+Everyone is permitted to copy and distribute verbatim or modified copies of this license document, and changing it is allowed as long as the name is changed.
+
+DON'T BE A DICK PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+1. Do whatever you like with the original work, just don't be a dick.
+
+	Being a dick includes - but is not limited to - the following instances:
+
+	1a. Outright copyright infringement - Don't just copy this and change the name.
+	1b. Selling the unmodified original with no work done what-so-ever, that's REALLY being a dick.
+	1c. Modifying the original work to contain hidden harmful content. That would make you a PROPER dick.
+
+2. If you become rich through modifications, related works/services, or supporting the original work, share the love. Only a dick would make loads off this work and not buy the original works creator(s) a pint.
+
+3. Code is provided with no warranty. Using somebody else's code and bitching when it goes wrong makes you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix back.
+
+4. The license can change at any time.
+
+5. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
