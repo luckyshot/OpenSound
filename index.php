@@ -7,62 +7,51 @@ require_once('config.php');
 	ROUTES
 **/
 
+require('opensound.php');
+$os = new OpenSound;
+
 // Requests status
-if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'status') {
-	require('opensound.php');
-	$os = new OpenSound;
+if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 	header('Content-type: application/json');
 	echo json_encode($os->status(), true);
 
 
 // returns audio file
-}else if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'file') {
-	require('opensound.php');
-	$os = new OpenSound;
-	echo $os->file($_REQUEST['value']);
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'file') {
+	echo $os->file($_REQUEST['param2']);
 
 
-// Request tracklist
-}else if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'tracklist') {
-	require('opensound.php');
-	$os = new OpenSound;
+// Request playlist
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'playlist') {
 	header('Content-type: application/json');
 	echo json_encode($os->files($config['path'],'mp3'), true);
 
 
-}else if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'play') {
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'play') {
 	// Change status to play and get $request[value] for song filename
-	require('opensound.php');
-	$os = new OpenSound;
 	header('Content-type: application/json');
-	$os->statusUpdate('song', $_REQUEST['value']);
+	$os->statusUpdate('song', $_REQUEST['param2']);
 	$os->statusUpdate('pos', 0);
 	$os->statusUpdate('status', 1);
 	echo json_encode(array('status'=>1), true);
 
 
-}else if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'pause') {
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'pause') {
 	// Change status to pause
-	require('opensound.php');
-	$os = new OpenSound;
 	header('Content-type: application/json');
 	echo json_encode($os->statusUpdate('status', 0), true);
 
 
-}else if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'pos') {
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'pos') {
 	// Change position in seconds
 	// Calculate latency and increase seconds by 1-2 to improve sync
-	require('opensound.php');
-	$os = new OpenSound;
 	header('Content-type: application/json');
-	echo json_encode($os->statusUpdate('pos', $_REQUEST['value']), true);
+	echo json_encode($os->statusUpdate('pos', $_REQUEST['param2']), true);
 
 
-}else if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'vol') {
-	require('opensound.php');
-	$os = new OpenSound;
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'vol') {
 	header('Content-type: application/json');
-	echo json_encode($os->statusUpdate('vol', $_REQUEST['value']), true);
+	echo json_encode($os->statusUpdate('vol', $_REQUEST['param2']), true);
 
 
 }else{
