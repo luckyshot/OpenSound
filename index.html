@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Opensound by luckyshot</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Opensound</h1>
+          <h2>OpenSound allows you to play music synchronized across many devices (laptops, computers, smartphones, iPods...), so you can listen to music all across your home, office or anywhere else.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/luckyshot/OpenSound/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/luckyshot/OpenSound/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/luckyshot/OpenSound" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>OpenSound: Free Open-Source HTML5 Wireless Multi-Room Music System</h1>
+
+<p>OpenSound allows you to play music synchronized across multiple devices (laptops, computers, smartphones, iPods…), so you can listen to music in multiple rooms: at home, office or anywhere else.</p>
+
+<h2>How it works</h2>
+
+<p>OpenSound works in any device with a modern HTML5 browser (desktop computers, laptops, smartphones, tablets, iPods…). The browser connects to your OpenSound server and then you can control your music from any device. Navigate through your music folder, fill in a playlist and play/pause/skip songs which will be streamed simultaneously to all connected devices.</p>
+
+<h2>Why are we building this?</h2>
+
+<p>We love music and considered setting up Sonos but that was a huge investment, thousands of euros we'd rather spend in something else… We have got many speakers around and old iPods/laptops we would need to throw away or sell for nothing. And hey, we are web developers and know HTML5 and current open technologies are able to do that. We can use our existing speakers, plug them into iPods and old laptops and voila! We got Sonos for free :D And it's Web, platform agnostic and open source… Awesome!</p>
+
+<p>It also serves as a great project to learn a lot of cool stuff, feel free to fork the project and help us build it, this is going to be a game-changer!</p>
+
+<h2>Main features</h2>
+
+<ul>
+<li>Works through your WiFi network and even the Internet (the least latency the best)</li>
+<li>Create playlists and stream MP3 files across all devices</li>
+<li>Works in all modern browsers including iPods and tablets</li>
+<li>Works with all speakers no matter brand, model or age</li>
+<li>Small scalable code</li>
+<li>Responsive design optimized for big screens and mobiles</li>
+<li>Easy-to-use revolutionary interface and UX</li>
+<li>Detects connected devices and allows fine-tunning volume and control</li>
+<li>Can be managed through any device, anywhere</li>
+<li>REST API</li>
+</ul><h2>Requirements</h2>
+
+<ul>
+<li>A computer with MP3s and a web server installed (XAMPP, LAMP…)</li>
+<li>Devices with a modern browser that support HTML5 <code>audio</code> and Internet connection</li>
+</ul><h2>Setup</h2>
+
+<p>. Start your web server in the computer with the music library
+. Open the URL of the server in other devices (ie. <code><a href="http://192.168.1.23/opensound/">http://192.168.1.23/opensound/</a></code> )
+. Add songs to the playlist and press Play :D</p>
+
+<h2>Technology</h2>
+
+<ul>
+<li>HTML5</li>
+<li>JavaScript/jQuery</li>
+<li>PHP</li>
+<li>JSON API
+(no database, it's <a href="https://github.com/luckyshot/php-file-database">file-based</a> for simplicity)</li>
+</ul><h2>Roadmap</h2>
+
+<p>We are currently focusing on getting a prototype functioning. These features are not part of the MVP although pretty cool to implement in the future, so I've noted them down:</p>
+
+<ul>
+<li>Latency detector for perfect sync and gap-less playback (early versions will use HTTP requests and detect the ping, in the future we will move to WebSockets or a higher performance protocol)</li>
+<li>Get computer audio output so OpenSound is not limited to playing music through the browser but can actually stream music from Spotify and any other software (there's solutions for it although we may need to reccur to Flash)</li>
+<li>Multiple playlists</li>
+<li>IDE3 tags detection</li>
+<li>Password protected access</li>
+<li>Cross-fade songs (using two audio tags)</li>
+<li>P2P (server-less) capability (there's solutions for it although we may need to reccur to Flash)</li>
+<li>iOS, Android, Firefox OS apps</li>
+</ul>
+        </section>
+
+        <footer>
+          Opensound is maintained by <a href="https://github.com/luckyshot">luckyshot</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
