@@ -13,11 +13,11 @@ OpenSound works in any device with a modern HTML5 browser (desktop computers, la
 
 
 
-Why I built this?
+Why are we building this?
 ----------------------
-I just got my own flat and considered setting up Sonos but that was a huge investment, thousands of euros I'd rather spend in something else&hellip; I have got many speakers around and old iPods/laptops I would need to throw away or sell for nothing. And hey, I am a web developer and know HTML5 alone is able to do that. I can use my existing speakers, plug them into iPods and old laptops and voila! We got Sonos for free :D And it's Web, platform agnostic and open source&hellip; Awesome!
+We love music and considered setting up Sonos but that was a huge investment, thousands of euros we'd rather spend in something else&hellip; We have got many speakers around and old iPods/laptops we would need to throw away or sell for nothing. And hey, we are web developers and know HTML5 and current open technologies are able to do that. We can use our existing speakers, plug them into iPods and old laptops and voila! We got Sonos for free :D And it's Web, platform agnostic and open source&hellip; Awesome!
 
-It also serves as a great project to learn a lot of cool stuff, feel free to fork the project and help build it, this is going to be a game-changer!
+It also serves as a great project to learn a lot of cool stuff, feel free to fork the project and help us build it, this is going to be a game-changer!
 
 
 
@@ -39,14 +39,14 @@ Main features
 Requirements
 ----------------------
 - A computer with MP3s and a web server installed (XAMPP, LAMP&hellip;)
-- Devices with a modern browser that support HTML5 <pre>audio</pre> and Internet connection
+- Devices with a modern browser that support HTML5 <code>audio</code> and Internet connection
 
 
 
 Setup
 ----------------------
 . Start your web server in the computer with the music library
-. Open the URL of the server in other devices (ie. <pre>http://192.168.1.23/opensound/</pre> )
+. Open the URL of the server in other devices (ie. <code>http://192.168.1.23/opensound/</code> )
 . Add songs to the playlist and press Play :D
 
 
@@ -58,19 +58,20 @@ Technology
 - JavaScript/jQuery
 - PHP
 - JSON API
-(no database, it's file-based for simplicity)
+(no database, it's <a href="https://github.com/luckyshot/php-file-database">file-based</a> for simplicity)
 
 
 
 
 Roadmap
 ----------------------
-I'm currently focusing on getting a prototype functioning. These features are not part of the MVP although pretty cool to implement in the future, so I've noted them down:
+We are currently focusing on getting a prototype functioning. These features are not part of the MVP although pretty cool to implement in the future, so I've noted them down:
 
 - Latency detector for perfect sync and gap-less playback (early versions will use HTTP requests and detect the ping, in the future we will move to WebSockets or a higher performance protocol)
+- Get computer audio output so OpenSound is not limited to playing music through the browser but can actually stream music from Spotify and any other software (there's solutions for it although we may need to reccur to Flash)
 - Multiple playlists
 - IDE3 tags detection
 - Password protected access
 - Cross-fade songs (using two audio tags)
 - P2P (server-less) capability (there's solutions for it although we may need to reccur to Flash)
-- iOS, Android, Firefox app
+- iOS, Android, Firefox OS apps
