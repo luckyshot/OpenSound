@@ -41,6 +41,7 @@ We are currently focusing on getting a prototype functioning. These features are
 
 - Latency detector for perfect sync and gap-less playback (early versions will use HTTP requests and detect the ping, in the future we will move to WebSockets or a higher performance protocol)
 - Get computer audio output so OpenSound is not limited to playing music through the browser but can actually stream music from Spotify and any other software (there's solutions for it although we may need to reccur to Flash)
+- Integrate OpenSound with Raspberry Pi's, that'd mean super-cheap $50 controllers
 - Multiple playlists
 - IDE3 tags detection
 - Password protected access
@@ -85,25 +86,24 @@ Our main priority is to avoid any setup at all and keep it super simple to start
 API
 ----------------------
 
-Everything is returned as JSON, simplified here for readability.
+Everything is returned as a JSON string (simplified here for readability).
 
 
 ### /
 
-Returns the HTML view (homepage)
+Returns the HTML view (homepage).
 
 
 ### /status
 
 Requests JSON status of OpenSound every 5 seconds, a client is considered connected if he sends a status update at least every 5 seconds:
 
-<pre>song: 'folder/path/starting/at/root/mysong.mp3'
+<pre>song: 'folder/path/mysong.mp3'
 pos: 0 // in seconds
 status: 0 (paused) or 1 (playing)
-vol: 80 (0 to 100)
 hash: { // hash is an md5 of the JSON string. If the hash changes, the client will request an update
-	playlist: 'sdf43c3d23'
-	clients: '3kjd2h3ijh'
+	playlist: '9f4e3847f075d1e7e21141658ade4837'
+	clients: '5f93f983524def3dca464469d2cf9f3e'
 }</pre>
 
 
@@ -112,8 +112,8 @@ hash: { // hash is an md5 of the JSON string. If the hash changes, the client wi
 Requests current playlist, called on page load and when the <code>status.hash.playlist</code> changes:
 
 <pre>[ // list of songs
-	'folder/path/starting/at/root/mysong.mp3'
-	'folder/path/starting/at/root/mysong.mp3'
+	'folder/path/mysong.mp3'
+	'folder/path/mysong.mp3'
 	...
 ]</pre>
 
@@ -127,26 +127,30 @@ Only connected clients are shown, but these can be enabled or disabled. If a cli
 <pre>[
 	'Black laptop': {
 		name: 'Black laptop'
+		location: 'Living room'
+		vol: 90
 		status: 0 (disabled) or 1 (enabled)
 		lastseen: 1000000 // Unix timestamp
 		ping: 200 // ms
 	},
 	'Xavi iPhone': {
-		name: 'iPhone',
-		status: 1,
-		lastseen: 1000000,
+		name: 'iPhone'
+		location: 'Bedroom'
+		vol: 20
+		status: 1
+		lastseen: 1000000
 		ping: 1400
 	},
 	...
 ]</pre>
 
 
-### /file/folder/path/starting/at/root/mysong.mp3
+### /file/folder/path/mysong.mp3
 
 Returns audio file in MP3 format.
 
 
-### /browse/folder/path/starting/at/root/
+### /browse/folder/path/
 
 Returns list of files and folders in that path.
 <pre>[
@@ -156,59 +160,147 @@ Returns list of files and folders in that path.
 	'othersong.mp3'
 ]</pre>
 
-<hr>
-
-For the following ones, server will return <code>{"status":"1"}</code> when OK or <code>{"status":"shorterror","msg":"Human-friendly explanation of the problem"}</code>:
 
 
-### /add/folder/path/starting/at/root/mysong.mp3
+
+
+
+### /add/folder/path/mysong.mp3
 
 Adds song to playlist.
 
+Returns:
+- "status": "1"
+- "status": "0", "adderror": "Could not add the song"
 
-### /rem/folder/path/starting/at/root/mysong.mp3
+
+### /rem/folder/path/mysong.mp3
 
 Removes song from playlist.
 
+Returns:
+- "status": "1"
+- "status": "0", "remerror": "Could not remove the song"
 
-### /play/folder/path/starting/at/root/mysong.mp3
 
-Plays song starting at position 0.
+### /play/folder/path/mysong.mp3
+
+Plays song (starts at position 0).
+
+Returns:
+- "status": "1"
+- "status": "0", "songnotfound": "Could not find the song"
 
 
 ### /pause
 
-Pauses song.
+Pauses song at current position.
+
+Returns:
+- "status": "1"
+- "status": "0", "pauseerror": "Can't pause"
 
 
 ### /pos/134
 
-Moves current track to position, in seconds.
+Moves current track to position (in seconds).
+
+Returns:
+- "status": "1"
+- "status": "0", "posinvalid": "Invalid value for position"
 
 
 ### /vol/90
 
-Changes master volume.
+Changes master volume (from 0 to 100).
+
+Returns:
+- "status": "1"
+- "status": "0", "volinvalid": "Invalid value for volume"
 
 
 ### /client/Xavi+iPhone/on
 
-Enable client.
+Enable client (pass URL encoded client's name).
+
+Returns:
+- "status": "1"
+- "status": "0", "clientnotfound": "The client could not be found"
 
 
 ### /client/Xavi+iPhone/off
 
-Disable client.
+Disable client (pass URL encoded client's name).
+
+Returns:
+- "status": "1"
+- "status": "0", "clientnotfound": "The client could not be found"
 
 
 
-## Errors
+### /client/Xavi+iPhone/vol/90
 
-Short version followed by human-friendly one (to be shown to user in nice alert box)
+Change volume for a specific client.
 
-- "songnotfound": "The song could not be found"
-- "clientnotfound": "The client could not be found"
-- [...]
+Returns:
+- "status": "1"
+- "status": "0", "clientnotfound": "The client could not be found"
+- "status": "0", "volinvalid": "Invalid value for volume"
+
+
+
+
+
+
+
+
+
+localStorage
+----------------------
+
+OpenSound stores information in localStorage of each device, as minimum as possible since we want to keep everything in sync in the <code>opensound.json</code> database file:
+
+<pre>{
+	devicename: 'iMac'
+	hash: [
+		playlist: 'a1324603d9b1a22277809229934a36fd'
+		clients: '0777d5c17d4066b82ab86dff8a46af6f'
+	]
+}</pre>
+
+
+
+
+
+
+
+
+Database file
+----------------------
+
+<pre>{
+	url: 'http://192.168.1.62/opensound/'
+	song: 'folder/path/mysong.mp3'
+	pos: 23
+	status: 1
+	playlist: [
+		// same as in /playlist
+	]
+	clients: [
+		// same as in /clients
+	]
+	hash: [
+		playlist: 'd19544ae709580379cd2523b0e72c86d'
+		clients: '250413d2982f1f83aa62a3a323cd2a87'
+	]
+}</pre>
+
+
+
+
+
+
+
 
 
 
