@@ -1,5 +1,7 @@
 <?php
 
+// Need to include FileDatabase script from github
+
 class OpenSound {
 
 	function __construct() {
@@ -51,7 +53,7 @@ class OpenSound {
 	public function status() {
 		global $config;
 		require('php-file-database.php');
-		$fdb = new FileDatabase($config['database']);
+		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
 		if (!$db) {
 			$db = array(
@@ -59,12 +61,19 @@ class OpenSound {
 				'pos' => 0,
 				'status' => 0,
 				'vol' => 80,
-				'master' => 'Ahtec laptop', // should change when a manual action is taken from another client
+				'playlist' => array(),
 				'clients' => array(
-					0 => array(
+					'Ahtec laptop' => array(
 						'name' => 'Ahtec laptop',
 						'status' => 1,
 						'lastseen' => 1000000,
+						'ping' => 200
+					),
+					'iPhone' => array(
+						'name' => 'iPhone',
+						'status' => 1,
+						'lastseen' => 1000000,
+						'ping' => 1400
 					)
 				),
 			);
@@ -77,7 +86,7 @@ class OpenSound {
 	public function statusUpdate($param, $value) {
 		global $config;
 		require('php-file-database.php');
-		$fdb = new FileDatabase($config['database']);
+		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
 		$db[$param] = $value;
 		$fdb->set($db);
