@@ -1,0 +1,42 @@
+Options All -Indexes
+
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^file/(.+)$ ?param1=file&param2=$2 [L,R=301]
+RewriteRule ^browse/(.+)$ ?param1=browse&param2=$2 [L,R=301]
+RewriteRule ^add/(.+)$ ?param1=add&param2=$2 [L,R=301]
+RewriteRule ^rem/(.+)$ ?param1=rem&param2=$2 [L,R=301]
+RewriteRule ^play/(.+)$ ?param1=play&param2=$2 [L,R=301]
+
+RewriteRule ^([A-Za-z]+)/(.+)/(.+)/(.+)/?$ ?param1=$1&param2=$2&param3=$3&param4=$4 [L,R=301]
+RewriteRule ^([A-Za-z]+)/(.+)/(.+)/?$ ?param1=$1&param2=$2&param3=$3 [L,R=301]
+RewriteRule ^([A-Za-z]+)/(.+)/?$ ?param1=$1&param2=$2 [L,R=301]
+RewriteRule ^([A-Za-z]+)/?$ ?param1=$1 [L,R=301]
+
+
+
+## Compress all text, html, javascript and css:
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/x-javascript application/javascript text/css
+
+## Cache Expiration times
+
+# 1 YEAR
+<FilesMatch "\.(ico|flv)$">
+Header set Cache-Control "max-age=29030400, public"
+</FilesMatch>
+
+# 1 MONTH
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+Header set Cache-Control "max-age=2419200, public"
+</FilesMatch>
+
+# 1 WEEK
+<FilesMatch "\.(doc|xls|ppt|pdf|css|js)$">
+Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+
+# 2 DAYS
+<FilesMatch "\.(xml|txt)$">
+Header set Cache-Control "max-age=172800, proxy-revalidate"
+</FilesMatch>
