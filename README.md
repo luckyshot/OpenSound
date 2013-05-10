@@ -41,9 +41,10 @@ We are currently focusing on getting a prototype functioning. These features are
 
 - Latency detector for perfect sync and gap-less playback (early versions will use HTTP requests and detect the ping, in the future we will move to WebSockets or a higher performance protocol)
 - Get computer audio output so OpenSound is not limited to playing music through the browser but can actually stream music from Spotify and any other software (there's solutions for it although we may need to reccur to Flash)
-- Integrate OpenSound with Raspberry Pi's, that'd mean super-cheap $50 controllers
+- Integrate OpenSound with Raspberry Pi's, that'd mean super-cheap $50 controllers (instead of the $300+ on the market right now)
 - Multiple playlists
 - IDE3 tags detection
+- Album cover
 - Password protected access
 - Cross-fade songs (using two audio tags)
 - P2P (server-less) capability (there's solutions for it although we may need to reccur to Flash)
@@ -210,13 +211,6 @@ Returns:
 - "status": "0", "posinvalid": "Invalid value for position"
 
 
-### /vol/90
-
-Changes master volume (from 0 to 100).
-
-Returns:
-- "status": "1"
-- "status": "0", "volinvalid": "Invalid value for volume"
 
 
 ### /client/Xavi+iPhone/on
