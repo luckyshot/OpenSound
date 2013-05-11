@@ -57,25 +57,36 @@ class OpenSound {
 		$db = $fdb->get();
 		if (!$db) {
 			$db = array(
+				'url' => 'http://192.168.1.62/opensound/',
 				'song' => '',
 				'pos' => 0,
 				'status' => 0,
-				'vol' => 80,
-				'playlist' => array(),
+				'playlist' => array(
+					'folder/mysong.mp3',
+					'folder/othersong.mp3'
+				),
 				'clients' => array(
 					'Ahtec laptop' => array(
 						'name' => 'Ahtec laptop',
+						//'location' => 'Living room',
+						'vol' => 90,
 						'status' => 1,
-						'lastseen' => 1000000,
+						'lastseen' => 1368183735,
 						'ping' => 200
 					),
 					'iPhone' => array(
 						'name' => 'iPhone',
+						//'location' => 'Pocket',
+						'vol' => 20,
 						'status' => 1,
-						'lastseen' => 1000000,
+						'lastseen' => 1368180000,
 						'ping' => 1400
 					)
 				),
+				'hash' => array(
+					'playlist' => '',
+					'clients' => ''
+				)
 			);
 			$fdb->set($db);
 		}
