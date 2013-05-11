@@ -4,9 +4,7 @@ OpenSound = {
 	},
 	tracklist: function() {"use strict";
 		$.ajax({
-			type: "GET",
-			url: "",
-			data: { action: 'tracklist' }
+			url: "tracklist"
 		}).done(function( response ) {
 			for(var i in response) {
 				$('#playlist').append('<li>'+response[i]+'</li>');
@@ -15,9 +13,7 @@ OpenSound = {
 	},
 	status: function() {"use strict";
 		$.ajax({
-			type: "GET",
-			url: "",
-			data: { action: 'status', devicename: localStorage.devicename }
+			url: "status/"+encodeURIComponent(localStorage.devicename)
 		}).done(function( response ) {
 			console.log(response);
 			var audio = document.getElementById('audio');
@@ -49,9 +45,7 @@ OpenSound = {
  */
 $('#playlist').on('click', 'li', function() {
 	$.ajax({
-		type: "GET",
-		url: "",
-		data: { action: 'play', value: $(this).html() }
+		url: "play/"+encodeURIComponent($(this).html())
 	}).done(function( response ) {
 		var audio = document.getElementById('audio');
 		audio.src = '?action=file&value='+$(this).html();
@@ -61,9 +55,7 @@ $('#playlist').on('click', 'li', function() {
 $('#vol').on('change', function() {
 	document.getElementById('audio').volume = $(this).val()/100;
 	$.ajax({
-		type: "GET",
-		url: "",
-		data: { action: 'vol', value: $(this).val() }
+		url: "vol/"+$(this).val()
 	}).done(function( response ) {
 		console.log('vol (change):');
 		console.log(response);
