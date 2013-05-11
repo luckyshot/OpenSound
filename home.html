@@ -9,20 +9,19 @@
 
 	<header class="r">
 		<div class="s6">
-			<h1>OpenSound</h1>
+			<h1><i class="logo"></i> OpenSound</h1>
 		</div>
-		<div class="s6">
-			<ul>
-				<li>Hi xaviesteve!</li>
-				<li>Volume <input type="range" id="vol" min="0" max="100" step="1" value="60"></li>
-			</ul>
+		<div class="s6 tr">
+			<p>Volume <input type="range" id="vol" min="0" max="100" step="1" value="60"></p>
 		</div>
 	</header>
 
 	<h2>
 		<span id="artist">Manel</span>
-		<span id="track"><!--Teresa Rampell--></span>
+		<span id="track">Teresa Rampell</span>
 	</h2>
+
+	<input type="range" id="pos" min="0" max="100" step="1" value="60">
 
 	<div class="r">
 		<div class="s9">
@@ -36,14 +35,14 @@
 			<!-- Should detect keywords such as iphone,ipad,tablet,desktop,imac,laptop and return appropriate icons automatically -->
 			<table>
 				<thead>
-					<tr><th>Device</th><th>Buffer</th><th>Active</th></tr>
+					<tr><th>Device</th><th>Volume</th><th>Active</th></tr>
 				</thead>
 				<thead>
-					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
-					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
-					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
-					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
-					<tr><td><i class="ico"></i> iMac</td><td>90</td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td><input type="range" id="vol-iMac" min="0" max="100" step="1" value="60"></td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td><input type="range" id="vol-iPhone" min="0" max="100" step="1" value="60"></td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td><input type="range" id="vol-3" min="0" max="100" step="1" value="60"></td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td><input type="range" id="vol-4" min="0" max="100" step="1" value="60"></td><td>On</td></tr>
+					<tr><td><i class="ico"></i> iMac</td><td><input type="range" id="vol-5" min="0" max="100" step="1" value="60"></td><td>On</td></tr>
 				</thead>
 			</table>
 
