@@ -123,12 +123,11 @@ Requests current playlist, called on page load and when the <code>status.hash.pl
 
 Requests connected clients, called on page load and when the <code>status.hash.clients</code> changes.
 
-Only connected clients are shown, but these can be enabled or disabled. If a client doesn't ping the server in 10 seconds the server will consider it disconnected and remove it from the list
+Clients can be connected or disconnected, when connected, they can be enabled or disabled.
 
 <pre>[
 	'Black laptop': {
 		name: 'Black laptop'
-		location: 'Living room'
 		vol: 90
 		status: 0 (disabled) or 1 (enabled)
 		lastseen: 1000000 // Unix timestamp
@@ -136,7 +135,6 @@ Only connected clients are shown, but these can be enabled or disabled. If a cli
 	},
 	'Xavi iPhone': {
 		name: 'iPhone'
-		location: 'Bedroom'
 		vol: 20
 		status: 1
 		lastseen: 1000000
@@ -209,6 +207,17 @@ Moves current track to position (in seconds).
 Returns:
 - "status": "1"
 - "status": "0", "posinvalid": "Invalid value for position"
+
+
+
+
+### /name/Black+laptop
+
+Renames current device.
+
+Returns:
+- "status": "1"
+- "status": "0", "nameinvalid": "Invalid name"
 
 
 
