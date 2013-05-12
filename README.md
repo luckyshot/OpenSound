@@ -175,8 +175,8 @@ Returns list of files and folders in that path.
 Adds song to playlist.
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "adderror", "msg": "Could not add the song"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "adderror", "msg": "Could not add the song"</code>
 
 
 ### /remove/folder/path/mysong.mp3
@@ -184,8 +184,8 @@ Returns:
 Removes song from playlist.
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "removeerror", "msg": "Could not remove the song"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "removeerror", "msg": "Could not remove the song"</code>
 
 
 ### /play/folder/path/mysong.mp3
@@ -193,8 +193,8 @@ Returns:
 Plays song (starts at position 0).
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "songnotfound", "msg": "Could not find the song"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "songnotfound", "msg": "Could not find the song"</code>
 
 
 ### /pause
@@ -202,8 +202,8 @@ Returns:
 Pauses song at current position.
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "pauseerror", "msg": "Can't pause"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "pauseerror", "msg": "Can't pause"</code>
 
 
 ### /pos/134
@@ -211,8 +211,8 @@ Returns:
 Moves current track to position (in seconds).
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "posinvalid", "msg": "Invalid value for position"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "posinvalid", "msg": "Invalid value for position"</code>
 
 
 
@@ -222,8 +222,8 @@ Returns:
 Renames current device.
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "nameinvalid", "msg": "Invalid name"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "nameinvalid", "msg": "Invalid name"</code>
 
 
 
@@ -233,8 +233,8 @@ Returns:
 Enable client (pass URL encoded client's name).
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "clientnotfound", "msg": "The client could not be found"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "clientnotfound", "msg": "The client could not be found"</code>
 
 
 ### /client/Xavi+iPhone/off
@@ -242,8 +242,8 @@ Returns:
 Disable client (pass URL encoded client's name).
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "clientnotfound", "msg": "The client could not be found"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "clientnotfound", "msg": "The client could not be found"</code>
 
 
 
@@ -252,9 +252,9 @@ Returns:
 Change volume for a specific client.
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "clientnotfound", "msg": "The client could not be found"
-- "status": "0", "error": "volinvalid", "msg": "Invalid value for volume"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "clientnotfound", "msg": "The client could not be found"</code>
+- <code>"status": "0", "error": "volinvalid", "msg": "Invalid value for volume"</code>
 
 
 
@@ -263,16 +263,16 @@ Returns:
 Starts ping calculation.
 
 Returns:
-- "status": "1"
-- "status": "0", "error": "pingerror", "msg": "Could not process first ping"
+- <code>"status": "1"</code>
+- <code>"status": "0", "error": "pingerror", "msg": "Could not process first ping"</code>
 
 ### /ping2/Xavi+iPhone
 
 Calculates ping.
 
 Returns:
-- "status": "1", "ping": "400"
-- "status": "0", "error": "ping2error", "msg": "Could not process final ping"
+- <code>"status": "1", "ping": "400"</code>
+- <code>"status": "0", "error": "ping2error", "msg": "Could not process final ping"</code>
 
 
 
