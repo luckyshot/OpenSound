@@ -310,7 +310,9 @@ Database file
 	url: 'http://192.168.1.62/opensound/'
 	song: 'folder/path/mysong.mp3'
 	pos: 23
+	started: 1368386529.79 // microtime(true), when the song started so we can sync
 	status: 1
+	path: /
 	playlist: [
 		// same as in /playlist
 	]
