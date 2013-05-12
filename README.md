@@ -171,7 +171,7 @@ Adds song to playlist.
 
 Returns:
 - "status": "1"
-- "status": "0", "adderror": "Could not add the song"
+- "status": "0", "error": "adderror", "msg": "Could not add the song"
 
 
 ### /remove/folder/path/mysong.mp3
@@ -180,7 +180,7 @@ Removes song from playlist.
 
 Returns:
 - "status": "1"
-- "status": "0", "removeerror": "Could not remove the song"
+- "status": "0", "error": "removeerror", "msg": "Could not remove the song"
 
 
 ### /play/folder/path/mysong.mp3
@@ -189,7 +189,7 @@ Plays song (starts at position 0).
 
 Returns:
 - "status": "1"
-- "status": "0", "songnotfound": "Could not find the song"
+- "status": "0", "error": "songnotfound", "msg": "Could not find the song"
 
 
 ### /pause
@@ -198,7 +198,7 @@ Pauses song at current position.
 
 Returns:
 - "status": "1"
-- "status": "0", "pauseerror": "Can't pause"
+- "status": "0", "error": "pauseerror", "msg": "Can't pause"
 
 
 ### /pos/134
@@ -207,7 +207,7 @@ Moves current track to position (in seconds).
 
 Returns:
 - "status": "1"
-- "status": "0", "posinvalid": "Invalid value for position"
+- "status": "0", "error": "posinvalid", "msg": "Invalid value for position"
 
 
 
@@ -218,7 +218,7 @@ Renames current device.
 
 Returns:
 - "status": "1"
-- "status": "0", "nameinvalid": "Invalid name"
+- "status": "0", "error": "nameinvalid", "msg": "Invalid name"
 
 
 
@@ -229,7 +229,7 @@ Enable client (pass URL encoded client's name).
 
 Returns:
 - "status": "1"
-- "status": "0", "clientnotfound": "The client could not be found"
+- "status": "0", "error": "clientnotfound", "msg": "The client could not be found"
 
 
 ### /client/Xavi+iPhone/off
@@ -238,7 +238,7 @@ Disable client (pass URL encoded client's name).
 
 Returns:
 - "status": "1"
-- "status": "0", "clientnotfound": "The client could not be found"
+- "status": "0", "error": "clientnotfound", "msg": "The client could not be found"
 
 
 
@@ -248,8 +248,8 @@ Change volume for a specific client.
 
 Returns:
 - "status": "1"
-- "status": "0", "clientnotfound": "The client could not be found"
-- "status": "0", "volinvalid": "Invalid value for volume"
+- "status": "0", "error": "clientnotfound", "msg": "The client could not be found"
+- "status": "0", "error": "volinvalid", "msg": "Invalid value for volume"
 
 
 
