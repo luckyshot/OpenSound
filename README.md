@@ -44,7 +44,7 @@ We are currently focusing on getting a prototype functioning. These features are
 - Integrate OpenSound with Raspberry Pi's, that'd mean super-cheap $50 controllers (instead of the $300+ on the market right now)
 - Multiple playlists
 - IDE3 tags detection
-- Album cover
+- Album cover &amp; lyrics
 - Password protected access
 - Cross-fade songs (using two audio tags)
 - P2P (server-less) capability (there's solutions for it although we may need to reccur to Flash)
@@ -63,9 +63,10 @@ We are currently focusing on getting a prototype functioning. These features are
 
 Our main priority is to avoid any setup at all and keep it super simple to start using OpenSound:
 
-1. Start your web server in the computer with the music library
-2. Open the URL of the server in other devices (ie. <code>http://192.168.1.23/opensound/</code> )
-3. Add songs to the playlist and press Play :D
+1. Start your web server in a computer with a music library
+2. Open <code>config.php</code> and change the music folder path
+3. Open the URL of the server in other devices (ie. <code>http://192.168.1.23/opensound/</code> )
+4. Add songs to the playlist and press Play
 
 
 
@@ -173,13 +174,13 @@ Returns:
 - "status": "0", "adderror": "Could not add the song"
 
 
-### /rem/folder/path/mysong.mp3
+### /remove/folder/path/mysong.mp3
 
 Removes song from playlist.
 
 Returns:
 - "status": "1"
-- "status": "0", "remerror": "Could not remove the song"
+- "status": "0", "removeerror": "Could not remove the song"
 
 
 ### /play/folder/path/mysong.mp3
