@@ -15,6 +15,11 @@ if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 	header('Content-type: application/json');
 	echo json_encode($os->status(), true);
 
+// Requests status
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'clients') {
+	header('Content-type: application/json');
+	echo json_encode($os->clients(), true);
+
 
 // returns audio file
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'file') {
