@@ -18,11 +18,27 @@
   .s6,.s7,.s8,.s9,.s10,.s11,.s12 {width:96%;margin-left:3.999%;}*/
 }
 
+@white: #fff;
+@black: #4C484F;
+@blueLight: #9EBFC8;
+@blue: #6996B3;
+@blue2: #539EBE;
+@blueDark: #486B81;
+@red: #ED5C49;
+@green: #B6D764;
+@greenDark: #8EB244;
+@yellow: #FCE365;
+@turquoise: #3FBAA6;
+@purple: #8983AF;
+@grayLightest: #E4E2D5;
+@grayLight: #ABABA1;
+@gray: #858D82;
+@grayDark: #3FBAA6;
+
 .tr {text-align: right;}
 
-body {font-family:Arial;margin:0;}
+body {color:@black;font-family:Arial;margin:0;}
 
-.blue {color:#6996B3;}
 
 .sprite,.logo,i[class^=icon] {background-image:url('sprite.png');display:inline-block;vertical-align: middle;}
 .logo {height:33px;width:33px;}
@@ -30,7 +46,7 @@ body {font-family:Arial;margin:0;}
 .icon-pause {background-position: -66px 0;height:33px;width:31px;}
 
 
-header {color:#fff;background:#6996B3;padding: 10px 5px;
+header {color:#fff;background:@blue;padding: 10px 5px;
 	h1 {line-height:1em;margin:0;padding: 0 .5em;}
 	p {line-height:1em;margin:0;padding:0;}
 }
@@ -45,13 +61,16 @@ h2 {font-size: 3em;text-align: center;
 
 #playlist {height: 20em;padding:0;overflow-y: scroll;
 	li {cursor: pointer;list-style: none;line-height: 2em;
-		&:hover {background:#cff;}
+		&:hover {background:@blueLight;}
 		&.active {font-weight: bold;}
 	}
 }
 
 
-
+#msg {position: fixed;top: 0;left: 0;text-align: center;width: 100%;background: @red;padding: 5px;color: @white;
+	&.success {background:@green;color:@white;}
+	&.info {background:@yellow;color:@black;}
+}
 
 
 
