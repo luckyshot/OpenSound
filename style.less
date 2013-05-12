@@ -24,10 +24,14 @@ body {font-family:Arial;margin:0;}
 
 .blue {color:#6996B3;}
 
-.sprite,.logo {background:url('sprite.png');display:inline-block;vertical-align: middle;}
+.sprite,.logo,i[class^=icon] {background-image:url('sprite.png');display:inline-block;vertical-align: middle;}
 .logo {height:33px;width:33px;}
+.icon-play {background-position: -33px 0;height:33px;width:31px;}
+.icon-pause {background-position: -66px 0;height:33px;width:31px;}
 
-header {color:#fff;background:#6996B3;
+#play,#pause {cursor:pointer;}
+
+header {color:#fff;background:#6996B3;padding: 10px 5px;
 	h1 {line-height:1em;margin:0;padding: 0 .5em;}
 	p {line-height:1em;margin:0;padding:0;}
 }
@@ -37,6 +41,14 @@ h2 {font-size: 3em;text-align: center;
 }
 
 #pos {width: 100%;}
+
+
+#playlist {height: 20em;padding:0;overflow-y: scroll;
+	li {cursor: pointer;list-style: none;line-height: 2em;
+		&:hover {background:#cff;}
+		&.active {font-weight: bold;}
+	}
+}
 
 
 
