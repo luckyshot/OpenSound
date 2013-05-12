@@ -40,6 +40,7 @@ Main features
 We are currently focusing on getting a prototype functioning. These features are not part of the MVP although pretty cool to implement in the future, so I've noted them down:
 
 - Latency detector for perfect sync and gap-less playback (early versions will use HTTP requests and detect the ping, in the future we will move to WebSockets or a higher performance protocol)
+- Dark theme and theme selection
 - Get computer audio output so OpenSound is not limited to playing music through the browser but can actually stream music from Spotify and any other software (there's solutions for it although we may need to reccur to Flash)
 - Integrate OpenSound with Raspberry Pi's, that'd mean super-cheap $50 controllers (instead of the $300+ on the market right now)
 - Multiple playlists
@@ -127,14 +128,14 @@ Requests connected clients, called on page load and when the <code>status.hash.c
 Clients can be connected or disconnected, when connected, they can be enabled or disabled.
 
 <pre>[
-	'Black laptop': {
+	{
 		name: 'Black laptop'
 		vol: 90
 		status: 0 (disabled) or 1 (enabled)
 		lastseen: 1000000 // Unix timestamp
 		ping: 200 // ms
 	},
-	'Xavi iPhone': {
+	{
 		name: 'iPhone'
 		vol: 20
 		status: 1
@@ -153,12 +154,16 @@ Returns audio file in MP3 format.
 ### /browse/folder/path/
 
 Returns list of files and folders in that path.
-<pre>[
-	'/folder/'
-	'/anotherfolder/'
-	'mysong.mp3'
-	'othersong.mp3'
-]</pre>
+
+<pre>{
+	path: '/techno/Marek Hemmann'
+	files: [
+		'/folder/'
+		'/anotherfolder/'
+		'mysong.mp3'
+		'othersong.mp3'
+	]
+}</pre>
 
 
 
@@ -266,6 +271,7 @@ OpenSound stores information in localStorage of each device, as minimum as possi
 
 <pre>{
 	devicename: 'iMac'
+	vol: 80
 	hash: [
 		playlist: 'a1324603d9b1a22277809229934a36fd'
 		clients: '0777d5c17d4066b82ab86dff8a46af6f'
