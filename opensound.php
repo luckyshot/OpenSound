@@ -77,7 +77,6 @@ class OpenSound {
 
 
 	public function statusUpdate($param, $value) {
-		global $config;
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
@@ -112,17 +111,33 @@ class OpenSound {
 		return $clients;
 	}
 
-
-	public function deviceRemove() {
-		//
+	public function clientstatus($client, $status) {
+		require('php-file-database.php');
+		$fdb = new FileDatabase('opensound');
+		$db = $fdb->get();
+		foreach($db['clients'] as $key => $value) {
+			if ($value['name']==$client) {
+				$db['clients'][$key]['status'] = $status;
+				$fdb->set($db);
+				return array('status' => 1);
+			}
+		}
+		return array('status' => 0, 'error'=>'clientnotfound', 'msg' => 'The client could not be found');
 	}
-
-
-	public function deviceStatus($status = 1) {
-		// Turns device ON/OFF (1 or 0)
+	
+	public function clientvol($client, $vol) {
+		require('php-file-database.php');
+		$fdb = new FileDatabase('opensound');
+		$db = $fdb->get();
+		foreach($db['clients'] as $key => $value) {
+			if ($value['name']==$client) {
+				$db['clients'][$key]['vol'] = $vol;
+				$fdb->set($db);
+				return array('status' => 1);
+			}
+		}
+		return array('status' => 0, 'error'=>'clientnotfound', 'msg' => 'The client could not be found');
 	}
-
-
 
 
 }

@@ -15,10 +15,24 @@ if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 	header('Content-type: application/json');
 	echo json_encode($os->status(), true);
 
-// Requests status
+// Client list
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'clients') {
 	header('Content-type: application/json');
 	echo json_encode($os->clients(), true);
+
+
+// Update client status
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'clientstatus') {
+	header('Content-type: application/json');
+	echo json_encode($os->clientstatus($_REQUEST['param2'], $_REQUEST['param3']), true);
+
+
+
+// Update client volume
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'clientvol') {
+	header('Content-type: application/json');
+	echo json_encode($os->clientvol($_REQUEST['param2'], $_REQUEST['param3']), true);
+
 
 
 // returns audio file
