@@ -50,11 +50,12 @@ class OpenSound {
 		STATUS
 	 */
 
-	public function status() {
+	public function status($client = '') {
 		global $config;
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
+		// Check if DB exists, if not, create one
 		if (!$db) {
 			$db = array(
 				'url' => 'http://192.168.1.62/opensound/',
@@ -72,6 +73,33 @@ class OpenSound {
 			);
 			$fdb->set($db);
 		}
+
+		// Check if client is already in the list or add him
+		if ($client) {
+			$clientexists = false;
+			foreach($db['clients'] as $key => $value) {
+				if ($value['name'] == $client) {
+					$clientexists = true;
+				}
+			}
+			if (!$clientexists) {
+				array_push($db['clients'], array(
+					'name' => $client,
+					'vol' => '90',
+					'status' => 1,
+					'lastseen' => time(),
+					'ping' => '200' // ms
+				));
+			}
+		}
+
+		// TODO: update song pos
+
+		// TODO: update lastseen
+
+		// TODO: remove inactive clients		
+
+		$fdb->set($db);
 		return $db;
 	}
 
@@ -91,24 +119,10 @@ class OpenSound {
 	 */
 
 	public function clients() {
-		// TODO: grab clients from database
-		$clients = array(
-			array(
-				'name' => 'iMac',
-				'vol' => 90,
-				'status' => 1,
-				'lastseen' => 1368183735,
-				'ping' => 200
-			),
-			array(
-				'name' => 'iPhone',
-				'vol' => 20,
-				'status' => 0,
-				'lastseen' => 1368180000,
-				'ping' => 1400
-			)
-		);
-		return $clients;
+		require('php-file-database.php');
+		$fdb = new FileDatabase('opensound');
+		$db = $fdb->get();
+		return $db['clients'];
 	}
 
 	public function clientstatus($client, $status) {
