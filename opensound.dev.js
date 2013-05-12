@@ -1,6 +1,6 @@
 OpenSound = {
 	config: {
-		interval: 5 // seconds
+		interval: 60 // seconds
 	},
 	msg: function(msg, class) {"use strict";
 		console.log(msg);
