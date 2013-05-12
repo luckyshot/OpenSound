@@ -2,16 +2,7 @@ OpenSound = {
 	config: {
 		interval: 5
 	},
-	tracklist: function() {"use strict";
-		$.ajax({
-			url: "tracklist"
-		}).done(function( response ) {
-			for(var i in response) {
-				$('#playlist').append('<li>'+response[i]+'</li>');
-			}
-		});
-	},
-	status: function() {"use strict";
+	status: function(devicename) {"use strict";
 		$.ajax({
 			url: "status/"+encodeURIComponent(localStorage.devicename)
 		}).done(function( response ) {
@@ -19,9 +10,9 @@ OpenSound = {
 			var audio = document.getElementById('audio');
 			// Song
 			console.log(audio.src);
-			console.log('?action=file&value='+response.song);
+			console.log('file/'+response.song);
 			if (audio.src.indexOf(encodeURIComponent(response.song)) < 0) {
-				audio.src = '?action=file&value='+response.song;
+				audio.src = 'file/'+response.song;
 				audio.play();
 			}
 			// Position
@@ -37,6 +28,88 @@ OpenSound = {
 			$('#artist').html(response.song);
 			//$('#track').html(response.song);
 		});
+	},
+	playlist: function() {"use strict";
+		$.ajax({
+			url: "playlist"
+		}).done(function( response ) {
+			for(var i in response) {
+				$('#playlist').append('<li>'+response[i]+'</li>');
+			}
+		});
+	},
+	clients: function(){"use strict";
+		$.ajax({
+			url: "clients/"
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	file: function(file){"use strict";
+		$.ajax({
+			url: "file/"+file
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	browse: function(path){"use strict";
+		$.ajax({
+			url: "browse/"+path
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	add: function(file){"use strict";
+		$.ajax({
+			url: "add/"+file
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	remove: function(file){"use strict";
+		$.ajax({
+			url: "remove/"+file
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	play: function(file){"use strict";
+		$.ajax({
+			url: "play/"+file
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	pause: function(){"use strict";
+		$.ajax({
+			url: "pause/"+file
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	pos: function(pos){"use strict";
+		$.ajax({
+			url: "pos/"+pos
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	name: function(devicename){"use strict";
+		localStorage.devicename = devicename;
+	},
+	client: function(devicename, enabled){"use strict";
+		$.ajax({
+			url: "client/"+devicename+"/"+enabled
+		}).done(function( response ) {
+			console.log(response);
+		});
+	},
+	clientvol: function(devicename, vol){"use strict";
+		$.ajax({
+			url: "client/"+devicename+"/vol/"+vol
+		}).done(function( response ) {
+			console.log(response);
+		});
 	}
 };
 
@@ -48,7 +121,7 @@ $('#playlist').on('click', 'li', function() {
 		url: "play/"+encodeURIComponent($(this).html())
 	}).done(function( response ) {
 		var audio = document.getElementById('audio');
-		audio.src = '?action=file&value='+$(this).html();
+		audio.src = 'file/'+$(this).html();
 		audio.play();
 	});
 });
@@ -63,18 +136,22 @@ $('#vol').on('change', function() {
 });
 
 $('#devicename').on('input paste', function() {
-	localStorage.devicename = $(this).val();
+	OpenSound.name( $(this).val() );
 });
 
 
 $(document).ready(function() {
 	// Load local settings
+	// Assign random name if none set
 	if (typeof localStorage.devicename === 'undefined') {
 		localStorage.devicename = 'device-'+Math.floor(Math.random()*999+100);
 	}
 	$('#devicename').val(localStorage.devicename);
+	
 	// Request server data
-	OpenSound.tracklist();
+	OpenSound.playlist();
 	OpenSound.status();
+	
+	// Set status timer
 	var t = setInterval(function() {OpenSound.status();}, OpenSound.config.interval*1000);
 });
