@@ -65,24 +65,6 @@ class OpenSound {
 					'folder/mysong.mp3',
 					'folder/othersong.mp3'
 				),
-				'clients' => array(
-					'Ahtec laptop' => array(
-						'name' => 'Ahtec laptop',
-						//'location' => 'Living room',
-						'vol' => 90,
-						'status' => 1,
-						'lastseen' => 1368183735,
-						'ping' => 200
-					),
-					'iPhone' => array(
-						'name' => 'iPhone',
-						//'location' => 'Pocket',
-						'vol' => 20,
-						'status' => 1,
-						'lastseen' => 1368180000,
-						'ping' => 1400
-					)
-				),
 				'hash' => array(
 					'playlist' => '',
 					'clients' => ''
@@ -106,11 +88,28 @@ class OpenSound {
 
 
 	/**
-		DEVICES
+		CLIENTS
 	 */
 
-	public function deviceAdd() {
-		//
+	public function clients() {
+		// TODO: grab clients from database
+		$clients = array(
+			array(
+				'name' => 'iMac',
+				'vol' => 90,
+				'status' => 1,
+				'lastseen' => 1368183735,
+				'ping' => 200
+			),
+			array(
+				'name' => 'iPhone',
+				'vol' => 20,
+				'status' => 0,
+				'lastseen' => 1368180000,
+				'ping' => 1400
+			)
+		);
+		return $clients;
 	}
 
 
