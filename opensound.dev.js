@@ -51,7 +51,7 @@ OpenSound = {
 			clients.empty();
 			for (var i = 0; i < response.length; i++) {
 				
-				clients.append( '<tr><td><i class="ico"></i> '+response[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response[i].name+'" min="0" max="100" step="1" value="'+response[i].vol+'"></td><td><input type="checkbox" class="device-status" data-devicename="'+response[i].name+'"'+((response[i].status===1)?' checked':'')+'></td></tr>' );
+				clients.append( '<tr><td><i class="ico"></i> '+response[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response[i].name+'" min="0" max="100" step="1" value="'+response[i].vol+'"></td><td><input type="checkbox" class="device-status" data-devicename="'+response[i].name+'"'+((response[i].status==1)?' checked':'')+'></td></tr>' );
 			}
 		});
 	},
@@ -172,7 +172,7 @@ $('#clients').on('change', 'input.device-vol', function() {
 		document.getElementById('audio').volume = $(this).val()/100;
 	}
 	$.ajax({
-		url: 'client/'+encodeURIComponent($(this).data('devicename'))+'/vol/'+$(this).val()
+		url: 'clientvol/'+encodeURIComponent($(this).data('devicename'))+'/'+$(this).val()
 	}).done(function( response ) {
 		console.log(response);
 	});
@@ -180,7 +180,7 @@ $('#clients').on('change', 'input.device-vol', function() {
 
 $('#clients').on('change', 'input.device-status', function() {
 	$.ajax({
-		url: 'client/'+encodeURIComponent($(this).data('devicename'))+'/'+(($(this).prop('checked'))?'on':'off')
+		url: 'clientstatus/'+encodeURIComponent($(this).data('devicename'))+'/'+(($(this).prop('checked'))?1:0)
 	}).done(function( response ) {
 		console.log(response);
 	});
