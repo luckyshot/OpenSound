@@ -99,7 +99,7 @@ Returns the HTML view (homepage).
 
 ### /status
 
-Requests JSON status of OpenSound every 5 seconds, a client is considered connected if he sends a status update at least every 5 seconds:
+Requests JSON status of OpenSound every 5 seconds, a client is considered connected if he sends a status update at least every 10 seconds:
 
 <pre>song: 'folder/path/mysong.mp3'
 pos: 0 // in seconds
@@ -255,6 +255,24 @@ Returns:
 - "status": "1"
 - "status": "0", "error": "clientnotfound", "msg": "The client could not be found"
 - "status": "0", "error": "volinvalid", "msg": "Invalid value for volume"
+
+
+
+### /ping/Xavi+iPhone
+
+Starts ping calculation.
+
+Returns:
+- "status": "1"
+- "status": "0", "error": "pingerror", "msg": "Could not process first ping"
+
+### /ping2/Xavi+iPhone
+
+Calculates ping.
+
+Returns:
+- "status": "1", "ping": "400"
+- "status": "0", "error": "ping2error", "msg": "Could not process final ping"
 
 
 
