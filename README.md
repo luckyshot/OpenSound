@@ -112,13 +112,9 @@ hash: { // hash is an md5 of the JSON string. If the hash changes, the client wi
 
 ### /playlist
 
-Requests current playlist, called on page load and when the <code>status.hash.playlist</code> changes:
+Requests current playlist, called on page load and when the <code>status.hash.playlist</code> changes.
 
-<pre>[ // list of songs
-	'folder/path/mysong.mp3'
-	'folder/path/mysong.mp3'
-	...
-]</pre>
+Returns <code>playlist</code> from the <a href="#database-file">Database file</a>.
 
 
 ### /clients
@@ -127,23 +123,7 @@ Requests connected clients, called on page load and when the <code>status.hash.c
 
 Clients can be connected or disconnected, when connected, they can be enabled or disabled.
 
-<pre>[
-	{
-		name: 'Black laptop'
-		vol: 90
-		status: 0 (disabled) or 1 (enabled)
-		lastseen: 1000000 // Unix timestamp
-		ping: 200 // ms
-	},
-	{
-		name: 'iPhone'
-		vol: 20
-		status: 1
-		lastseen: 1000000
-		ping: 1400
-	},
-	...
-]</pre>
+Returns <code>clients</code> from the <a href="#database-file">Database file</a>.
 
 
 ### /file/folder/path/mysong.mp3
@@ -174,7 +154,7 @@ Returns list of files and folders in that path.
 
 Adds song to playlist.
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "adderror", "msg": "Could not add the song"</code>
 
@@ -183,7 +163,7 @@ Returns:
 
 Removes song from playlist.
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "removeerror", "msg": "Could not remove the song"</code>
 
@@ -192,7 +172,7 @@ Returns:
 
 Plays song (starts at position 0).
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "songnotfound", "msg": "Could not find the song"</code>
 
@@ -201,7 +181,7 @@ Returns:
 
 Pauses song at current position.
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "pauseerror", "msg": "Can't pause"</code>
 
@@ -210,7 +190,7 @@ Returns:
 
 Moves current track to position (in seconds).
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "posinvalid", "msg": "Invalid value for position"</code>
 
@@ -221,7 +201,7 @@ Returns:
 
 Renames current device.
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "nameinvalid", "msg": "Invalid name"</code>
 
@@ -232,7 +212,7 @@ Returns:
 
 Enable client (pass URL encoded client's name).
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "clientnotfound", "msg": "The client could not be found"</code>
 
@@ -241,7 +221,7 @@ Returns:
 
 Disable client (pass URL encoded client's name).
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "clientnotfound", "msg": "The client could not be found"</code>
 
@@ -251,7 +231,7 @@ Returns:
 
 Change volume for a specific client.
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "clientnotfound", "msg": "The client could not be found"</code>
 - <code>"status": "0", "error": "volinvalid", "msg": "Invalid value for volume"</code>
@@ -262,7 +242,7 @@ Returns:
 
 Starts ping calculation.
 
-Returns:
+##### Returns:
 - <code>"status": "1"</code>
 - <code>"status": "0", "error": "pingerror", "msg": "Could not process first ping"</code>
 
@@ -270,7 +250,7 @@ Returns:
 
 Calculates ping.
 
-Returns:
+##### Returns:
 - <code>"status": "1", "ping": "400"</code>
 - <code>"status": "0", "error": "ping2error", "msg": "Could not process final ping"</code>
 
@@ -314,10 +294,26 @@ Database file
 	status: 1
 	path: /
 	playlist: [
-		// same as in <a href="#playlist">/playlist</a>
+		'folder/path/mysong.mp3'
+		'folder/path/mysong.mp3'
+		...
 	]
 	clients: [
-		// same as in <a href="#clients">/clients</a>
+		{
+			name: 'iMac'
+			vol: 90
+			status: 0 (disabled) or 1 (enabled)
+			lastseen: 1000000 // Unix timestamp
+			ping: 200 // ms
+		},
+		{
+			name: 'iPhone'
+			vol: 20
+			status: 1
+			lastseen: 1000000
+			ping: 1400
+		},
+		...
 	]
 	hash: [
 		playlist: 'd19544ae709580379cd2523b0e72c86d'
