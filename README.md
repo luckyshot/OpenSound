@@ -324,8 +324,14 @@ Database file
 
 
 
+Message
+----------------------
 
+There are three kind of messages shown in OpenSound:
 
+- <code>error</code> (default): Displays an error
+- <code>success</code>: After a user action, notifies of a successful change
+- <code>info</code>: Informs of something, not necessarily a change or an error
 
 
 
@@ -345,11 +351,11 @@ DON'T BE A DICK PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AN
 
 	Being a dick includes - but is not limited to - the following instances:
 
-	1a. Outright copyright infringement - Don't just copy this and change the name.
+	a. Outright copyright infringement - Don't just copy this and change the name.
 
-	1b. Selling the unmodified original with no work done what-so-ever, that's REALLY being a dick.
+	b. Selling the unmodified original with no work done what-so-ever, that's REALLY being a dick.
 
-	1c. Modifying the original work to contain hidden harmful content. That would make you a PROPER dick.
+	c. Modifying the original work to contain hidden harmful content. That would make you a PROPER dick.
 
 2. If you become rich through modifications, related works/services, or supporting the original work, share the love. Only a dick would make loads off this work and not buy a pint to the original works creator(s).
 

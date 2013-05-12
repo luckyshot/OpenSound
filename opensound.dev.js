@@ -1,9 +1,25 @@
 OpenSound = {
 	config: {
-		interval: 5 // seconds
+		interval: 5, // seconds
+		msgtimer: ''
 	},
-	msg: function(msg, class) {"use strict";
-		console.log(msg);
+	msg: function(msg, css) {"use strict";
+		clearTimeout(this.config.msgtimer);
+		$('#msg').remove();
+		$('body').append('<div id="msg" class="'+css+'"><span id="msg-close" class="close" title="Close">&times;</span><p>'+msg+'</p></div>');
+		$('#msg').fadeIn('fastest');
+		$('#msg-close').on('click', function() {
+			$(this).unbind('click');
+			clearTimeout(this.config.msgtimer);
+			$('#msg').fadeOut('fast', function() {
+				$('#msg').remove();
+			});
+		});
+		this.config.msgtimer = setTimeout( function() { 
+			$('#msg').fadeOut('slow', function() {
+				$(this).remove();
+			}); 
+		}, 7000);
 	},
 	status: function(devicename) {"use strict";
 		$.ajax({
