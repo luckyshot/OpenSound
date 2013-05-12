@@ -9,7 +9,6 @@ RewriteRule ^add/(.+)$ ?param1=add&param2=$1 [L,nc]
 RewriteRule ^rem/(.+)$ ?param1=rem&param2=$1 [L,nc]
 RewriteRule ^play/(.+)$ ?param1=play&param2=$1 [L,nc]
 
-RewriteRule ^([A-Za-z]+)/(.+)/(.+)/(.+)/?$ ?param1=$1&param2=$2&param3=$3&param4=$4 [L,nc]
 RewriteRule ^([A-Za-z]+)/(.+)/(.+)/?$ ?param1=$1&param2=$2&param3=$3 [L,nc]
 RewriteRule ^([A-Za-z]+)/(.+)/?$ ?param1=$1&param2=$2 [L,nc]
 RewriteRule ^([A-Za-z]+)/?$ ?param1=$1 [L,nc]

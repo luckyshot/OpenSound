@@ -237,7 +237,7 @@ Returns:
 - <code>"status": "0", "error": "clientnotfound", "msg": "The client could not be found"</code>
 
 
-### /client/Xavi+iPhone/off
+### /clientstatus/Xavi+iPhone/off
 
 Disable client (pass URL encoded client's name).
 
@@ -247,7 +247,7 @@ Returns:
 
 
 
-### /client/Xavi+iPhone/vol/90
+### /clientvol/Xavi+iPhone/90
 
 Change volume for a specific client.
 
@@ -314,10 +314,10 @@ Database file
 	status: 1
 	path: /
 	playlist: [
-		// same as in /playlist
+		// same as in <a href="#playlist">/playlist</a>
 	]
 	clients: [
-		// same as in /clients
+		// same as in <a href="#clients">/clients</a>
 	]
 	hash: [
 		playlist: 'd19544ae709580379cd2523b0e72c86d'
