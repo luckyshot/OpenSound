@@ -8,17 +8,14 @@
 <body>
 
 	<header class="r">
-		<div class="s6">
+		<div class="s12">
 			<h1><i class="logo"></i> OpenSound</h1>
-		</div>
-		<div class="s6 tr">
-			<p>Volume <input type="range" id="vol" min="0" max="100" step="1" value="60"></p>
 		</div>
 	</header>
 
 	<h2>
-		<span id="artist">Manel</span>
-		<span id="track">Teresa Rampell</span>
+		<!-- <span id="artist">Booka Shade</span> -->
+		<span id="track">Booka Shade - Regenerate</span>
 	</h2>
 
 	<input type="range" id="pos" min="0" max="100" step="1" value="60">
@@ -33,22 +30,27 @@
 		<div class="s3">
 			<h3>Devices</h3>
 			<!-- Should detect keywords such as iphone,ipad,tablet,desktop,imac,laptop and return appropriate icons automatically -->
-			<table>
+			<table id="clients">
 				<thead>
 					<tr><th>Device</th><th>Volume</th><th>Active</th></tr>
 				</thead>
-				<thead>
-					<tr><td><i class="ico"></i> iMac</td><td><input type="range" class="device-vol" data-devicename="iMac" min="0" max="100" step="1" value="60"></td><td><input type="checkbox" checked></td></tr>
-					<tr><td><i class="ico"></i> iPhone</td><td><input type="range" class="device-vol" data-devicename="iPhone" min="0" max="100" step="1" value="60"></td><td><input type="checkbox" checked></td></tr>
-					<tr><td><i class="ico"></i> device-341</td><td><input type="range" class="device-vol" data-devicename="device-341" min="0" max="100" step="1" value="60"></td><td><input type="checkbox" checked></td></tr>
-					<tr><td><i class="ico"></i> device-739</td><td><input type="range" class="device-vol" data-devicename="device-739" min="0" max="100" step="1" value="60"></td><td><input type="checkbox" checked></td></tr>
-					<tr><td><i class="ico"></i> device-124</td><td><input type="range" class="device-vol" data-devicename="device-124" min="0" max="100" step="1" value="60"></td><td><input type="checkbox" checked></td></tr>
-				</thead>
+				<tbody>
+					<!-- OpenSound.clients(); -->
+				</tbody>
 			</table>
 
 			<h3>Settings</h3>
 			<label>Device name</label>
 			<input type="text" id="devicename" value="">
+		</div>
+	</div>
+	<div class="r">
+		<div class="s12">
+			<h3>Browse</h3>
+			<p id="path">/</p>
+			<ul id="browser">
+				<!-- <li></li> -->
+			</ul>
 		</div>
 	</div>
 
