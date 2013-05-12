@@ -13,7 +13,7 @@ $os = new OpenSound;
 // Requests status
 if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 	header('Content-type: application/json');
-	echo json_encode($os->status(), true);
+	echo json_encode($os->status($_REQUEST['param2']), true);
 
 // Client list
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'clients') {
