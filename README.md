@@ -363,3 +363,7 @@ DON'T BE A DICK PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AN
 
 4. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
+
+### Credits &amp; Attribution
+
+Icons adapted from <a href="http://juliuscsurgo.me/">Julius Csurgo</a>
