@@ -1,6 +1,6 @@
 OpenSound = {
 	config: {
-		interval: 60 // seconds
+		interval: 5 // seconds
 	},
 	msg: function(msg, class) {"use strict";
 		console.log(msg);
@@ -24,9 +24,11 @@ OpenSound = {
 			//}else{
 			//	audio.currentTime = response.pos;
 			//}
+			// Playing?
+			(response.status===1) ? audio.play() : audio.pause();
 			// Volume
-			$('#vol').val(response.vol);
-			document.getElementById('audio').volume = response.vol/100;
+			//$('#vol').val(response.vol);
+			//document.getElementById('audio').volume = response.vol/100;
 			// Song info
 			$('#track').html(response.song);
 			//$('#track').html(response.song);
@@ -98,11 +100,12 @@ OpenSound = {
 			url: "play/"+file
 		}).done(function( response ) {
 			var audio = document.getElementById('audio');
-			audio.src = 'file/'+file;
+			audio.src = '/file/'+file;
 			audio.play();
 		});
 	},
 	pause: function(){"use strict";
+		audio.pause();
 		$.ajax({
 			url: "pause"
 		}).done(function( response ) {
@@ -136,6 +139,23 @@ OpenSound = {
 		}).done(function( response ) {
 			console.log(response);
 		});
+	},
+	ping: function() {"use strict";
+		$.ajax({
+			url: "ping/"+localStorage.devicename
+		}).done(function( response ) {
+			if (response.status===1) {
+				$.ajax({
+					url: "ping2/"+localStorage.devicename
+				}).done(function( response ) {
+					if (response.status===1) {
+						response.ping
+					}else{
+						this.msg = response.msg;
+					} 
+				});
+			}
+		});		
 	}
 };
 
@@ -169,6 +189,14 @@ $('#clients').on('change', 'input.device-status', function() {
 
 $('#devicename').on('input paste', function() {
 	OpenSound.name( $(this).val() );
+});
+
+
+$('#play').on('click', function(){
+	OpenSound.play();
+});
+$('#pause').on('click', function(){
+	OpenSound.pause();
 });
 
 
