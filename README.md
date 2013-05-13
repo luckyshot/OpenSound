@@ -37,7 +37,7 @@ Main features
 
 ### Future roadmap
 
-We are currently focusing on getting a prototype functioning. These features are not part of the MVP although pretty cool to implement in the future, so I've noted them down:
+We are currently focusing on getting a prototype functioning. These features are not part of the MVP although pretty cool to implement in the future, so we've noted them down:
 
 - Latency detector for perfect sync and gap-less playback (early versions will use HTTP requests and detect the ping, in the future we will move to WebSockets or a higher performance protocol)
 - Dark theme and theme selection
