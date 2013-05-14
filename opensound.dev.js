@@ -73,11 +73,24 @@ OpenSound = {
 		$.ajax({
 			url: "clients/"
 		}).done(function( response ) {
-			var clients = $('#clients>tbody');
+			var clients = $('#clients>tbody'),
+				status;
 			clients.empty();
 			for (var i = 0; i < response.length; i++) {
-				
-				clients.append( '<tr><td><i class="ico"></i> '+response[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response[i].name+'" min="0" max="100" step="1" value="'+response[i].vol+'"></td><td><input type="checkbox" class="device-status" data-devicename="'+response[i].name+'"'+((response[i].status==1)?' checked':'')+'></td></tr>' );
+				// Assign current status
+				status = Math.round(new Date().getTime() / 1000);
+
+				if (response[i].name === localStorage.devicename) {
+					status = 'you';
+				}else if (status - response[i].lastseen > 30) {
+					status = 'offline';
+				}else if (status - response[i].lastseen < 10) {
+					status = 'online';
+				}else{
+					status = 'idle';
+				}
+
+				clients.append( '<tr><td><i class="status '+status+'" title="'+status+'"></i> '+response[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response[i].name+'" min="0" max="100" step="1" value="'+response[i].vol+'"></td><td><input type="checkbox" class="device-status" data-devicename="'+response[i].name+'"'+((response[i].status==1)?' checked':'')+'></td></tr>' );
 			}
 		});
 	},

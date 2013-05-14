@@ -40,10 +40,21 @@
 body {color:@black;background:@grayLightest;font-family:Arial;margin:0;}
 
 
-.sprite,.logo,i[class^=icon] {background-image:url('sprite.png');display:inline-block;vertical-align: middle;}
+.sprite,.logo,i {background-image:url('sprite.png');display:inline-block;vertical-align: middle;}
 .logo {height:33px;width:33px;}
 .icon-play {background-position: -33px 0;height:33px;width:31px;}
 .icon-pause {background-position: -66px 0;height:33px;width:31px;}
+
+i.status {height:12px;width:12px;background-position: -40px -36px;}
+i.status.offline {background-position: 0 -36px;}
+i.status.you {background-position: -13px -36px;}
+i.status.online {background-position: -26px -36px;}
+i.status.idle {background-position: -52px -36px;}
+
+
+i.check-on {height: 12px;width: 27px;background-position: -67px -36px;}
+i.check-off {height: 12px;width: 27px;background-position: -97px -36px;}
+
 
 
 header {color:#fff;background:@blue;padding: 10px 5px;
