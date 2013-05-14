@@ -1,7 +1,7 @@
 // Global variables
 var audio = document.getElementById('audio');
 
-OpenSound = {
+var OpenSound = {
 	config: {
 		interval: 5, // seconds
 		msgtimer: ''
@@ -18,22 +18,24 @@ OpenSound = {
 				$('#msg').remove();
 			});
 		});
-		this.config.msgtimer = setTimeout( function() { 
+		this.config.msgtimer = setTimeout( function() {
 			$('#msg').fadeOut('slow', function() {
 				$(this).remove();
-			}); 
+			});
 		}, 7000);
 	},
-	status: function(devicename) {"use strict";
+	status: function() {"use strict";
 		// Start ping timer
+		// TODO: Ping is not exactly accurate since request and response times may differ although it's the closest way I can think of right now
 		localStorage.ping = new Date().getTime();
-		
+
 		// Do AJAX call
 		$.ajax({
 			url: "status/"+encodeURIComponent(localStorage.devicename)
 		}).done(function( response ) {
 			// Get time again to calculate ping
-			localStorage.ping = new Date().getTime() - localStorage.ping;
+			localStorage.ping = (new Date().getTime() - localStorage.ping) / 2;
+			$('#ping').html(localStorage.ping);
 
 			console.log(response);
 
@@ -45,7 +47,10 @@ OpenSound = {
 				audio.play();
 			}
 			// Position
-			//if (audio.currentTime - response.pos < 10 && audio.currentTime - response.pos < 10) {
+			// TODO: need to improve IF to not reposition every time
+			if (audio.currentTime < response.pos) {
+				audio.currentTime = response.pos + localStorage.ping;
+			}
 			//
 			//}else{
 			//	audio.currentTime = response.pos;
@@ -90,7 +95,7 @@ OpenSound = {
 					status = 'idle';
 				}
 
-				clients.append( '<tr><td><i class="status '+status+'" title="'+status+'"></i> '+response[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response[i].name+'" min="0" max="100" step="1" value="'+response[i].vol+'"></td><td><input type="checkbox" class="device-status" data-devicename="'+response[i].name+'"'+((response[i].status==1)?' checked':'')+'></td></tr>' );
+				clients.append( '<tr><td><i class="status '+status+'" title="'+status+'"></i> '+response[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response[i].name+'" min="0" max="100" step="1" value="'+response[i].vol+'"></td><td><input type="checkbox" class="device-status" data-devicename="'+response[i].name+'"'+((response[i].status===1)?' checked':'')+'></td></tr>' );
 			}
 		});
 	},
@@ -135,12 +140,16 @@ OpenSound = {
 		});
 	},
 	play: function(file){"use strict";
-		if (typeof file === 'undefined') file = '';
+		if (typeof file === 'undefined') {file = '';}
 		$.ajax({
 			url: "play/"+file
 		}).done(function( response ) {
-			audio.src = '/file/'+file;
-			audio.play();
+			if (response.status===1) {
+				audio.src = '/file/'+file;
+				audio.play();
+			}else{
+				this.msg(response.msg, 'error');
+			}
 		});
 	},
 	pause: function(){"use strict";
@@ -178,23 +187,6 @@ OpenSound = {
 		}).done(function( response ) {
 			console.log(response);
 		});
-	},
-	ping: function() {"use strict";
-		$.ajax({
-			url: "ping/"+localStorage.devicename
-		}).done(function( response ) {
-			if (response.status===1) {
-				$.ajax({
-					url: "ping2/"+localStorage.devicename
-				}).done(function( response ) {
-					if (response.status===1) {
-						response.ping
-					}else{
-						this.msg = response.msg;
-					} 
-				});
-			}
-		});		
 	}
 };
 
@@ -226,13 +218,13 @@ $('#clients').on('change', 'input.device-status', function() {
 });
 
 
-$('#devicename').on('input paste', function() {
+$('#devicename').on('blur', function() {
 	OpenSound.name( $(this).val() );
 });
 
 
 $('#play').on('click', function(){
-	OpenSound.play();
+	OpenSound.play($('#track').html());
 });
 $('#pause').on('click', function(){
 	OpenSound.pause();
@@ -246,12 +238,12 @@ $(document).ready(function() {
 		localStorage.devicename = 'device-'+Math.floor(Math.random()*999+100);
 	}
 	$('#devicename').val(localStorage.devicename);
-	
+
 	// Request server data
 	OpenSound.playlist();
 	OpenSound.clients(); // TODO: remove once we do this in status() hash check
 	OpenSound.status();
-	
+
 	// Set status timer
-	var t = setInterval(function() {OpenSound.status();}, OpenSound.config.interval*1000);
+	setInterval(function() {OpenSound.status();}, OpenSound.config.interval*1000);
 });
