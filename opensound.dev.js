@@ -1,3 +1,6 @@
+// Global variables
+var audio = document.getElementById('audio');
+
 OpenSound = {
 	config: {
 		interval: 5, // seconds
@@ -22,11 +25,18 @@ OpenSound = {
 		}, 7000);
 	},
 	status: function(devicename) {"use strict";
+		// Start ping timer
+		localStorage.ping = new Date().getTime();
+		
+		// Do AJAX call
 		$.ajax({
 			url: "status/"+encodeURIComponent(localStorage.devicename)
 		}).done(function( response ) {
+			// Get time again to calculate ping
+			localStorage.ping = new Date().getTime() - localStorage.ping;
+
 			console.log(response);
-			var audio = document.getElementById('audio');
+
 			// Song
 			console.log(audio.src);
 			console.log('file/'+response.song);
@@ -115,7 +125,6 @@ OpenSound = {
 		$.ajax({
 			url: "play/"+file
 		}).done(function( response ) {
-			var audio = document.getElementById('audio');
 			audio.src = '/file/'+file;
 			audio.play();
 		});

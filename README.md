@@ -238,22 +238,6 @@ Change volume for a specific client.
 
 
 
-### /ping/Xavi+iPhone
-
-Starts ping calculation.
-
-##### Returns:
-- <code>"status": "1"</code>
-- <code>"status": "0", "error": "pingerror", "msg": "Could not process first ping"</code>
-
-### /ping2/Xavi+iPhone
-
-Calculates ping.
-
-##### Returns:
-- <code>"status": "1", "ping": "400"</code>
-- <code>"status": "0", "error": "ping2error", "msg": "Could not process final ping"</code>
-
 
 
 
@@ -270,6 +254,7 @@ OpenSound stores information in localStorage of each device, as minimum as possi
 <pre>{
 	devicename: 'iMac'
 	vol: 80
+	ping: 200
 	hash: [
 		playlist: 'a1324603d9b1a22277809229934a36fd'
 		clients: '0777d5c17d4066b82ab86dff8a46af6f'
@@ -357,7 +342,7 @@ DON'T BE A DICK PUBLIC LICENSE TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AN
 
 	c. Modifying the original work to contain hidden harmful content. That would make you a PROPER dick.
 
-2. If you become rich through modifications, related works/services, or supporting the original work, share the love. Only a dick would make loads off this work and not buy a pint to the original works creator(s).
+2. If you become rich through modifications, related works/services, or supporting the original work, share the love. Only a dick would make loads off this work and not buy a pint to the original work creator(s).
 
 3. Code is provided with no warranty. Using somebody else's code and bitching when it goes wrong makes you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix back.
 
