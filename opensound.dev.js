@@ -166,12 +166,8 @@ var OpenSound = {
 		$.ajax({
 			url: "play/"+file
 		}).done(function( response ) {
-			if (response.status===1) {
-				audio.src = '/file/'+file;
-				audio.play();
-			}else{
-				this.msg(response.msg, 'error');
-			}
+			audio.src = '/file/'+file;
+			audio.play();
 		});
 	},
 	pause: function(){"use strict";
@@ -209,8 +205,21 @@ var OpenSound = {
 		}).done(function( response ) {
 			console.log(response);
 		});
+	},
+	delay: function(func, ms) {
+		if (typeof ms === 'undefined') {ms = 500;}
+		setTimeout(function(){func()}, ms);
+	},
+	nextSong: function() {
+		alert('next song!');
 	}
 };
+
+
+// callback when song ends
+$(audio).bind('ended', function(){
+	OpenSound.audio.next();
+});
 
 /**
  *	EVENTS
@@ -220,10 +229,11 @@ $('#playlist').on('click', 'li', function() {
 });
 
 
-$('#clients').on('change', 'input.device-vol', function() {
+$('#clients').on('mouseup', 'input.device-vol', function() {
 	if ($(this).data('devicename')===localStorage.devicename) {
 		document.getElementById('audio').volume = $(this).val()/100;
 	}
+
 	$.ajax({
 		url: 'clientvol/'+encodeURIComponent($(this).data('devicename'))+'/'+$(this).val()
 	}).done(function( response ) {
