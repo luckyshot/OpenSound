@@ -66,6 +66,7 @@ class OpenSound {
 					'folder/mysong.mp3',
 					'folder/othersong.mp3'
 				),
+				'clients' => array(),
 				'hash' => array(
 					'playlist' => '',
 					'clients' => ''
@@ -117,7 +118,7 @@ class OpenSound {
 	/**
 		CLIENTS
 	 */
-
+	// List all clients
 	public function clients() {
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
@@ -125,6 +126,7 @@ class OpenSound {
 		return $db['clients'];
 	}
 
+	// Change a client's status
 	public function clientstatus($client, $status) {
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
@@ -139,6 +141,7 @@ class OpenSound {
 		return array('status' => 0, 'error'=>'clientnotfound', 'msg' => 'The client could not be found');
 	}
 	
+	// Change a client's volume
 	public function clientvol($client, $vol) {
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
