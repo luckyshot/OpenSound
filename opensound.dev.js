@@ -3,7 +3,7 @@ var audio = document.getElementById('audio');
 
 var OpenSound = {
 	config: {
-		interval: 5, // seconds
+		interval: 500, // seconds
 		msgtimer: ''
 	},
 	msg: function(msg, css) {"use strict";
@@ -63,6 +63,28 @@ var OpenSound = {
 			// Song info
 			$('#track').html(response.song);
 			//$('#track').html(response.song);
+
+			// Update clients
+			var clients = $('#clients>tbody'),
+				status;
+			clients.empty();
+			for (var i = 0; i < response.clients.length; i++) {
+				// Assign current status
+				status = Math.round(new Date().getTime() / 1000);
+
+				if (response.clients[i].name === localStorage.devicename) {
+					status = 'you';
+				}else if (status - response.clients[i].lastseen > 30) {
+					status = 'offline';
+				}else if (status - response.clients[i].lastseen < 10) {
+					status = 'online';
+				}else{
+					status = 'idle';
+				}
+
+				clients.append( '<tr><td><i class="status '+status+'" title="'+status+'"></i> '+response.clients[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response.clients[i].name+'" min="0" max="100" step="1" value="'+response.clients[i].vol+'"></td><td><input type="checkbox" id="device-status-'+i+'" class="device-status" data-devicename="'+response.clients[i].name+'"'+((response.clients[i].status===1)?' checked':'')+'><label for="device-status-'+i+'"></label></td></tr>' );
+			}
+
 		});
 	},
 	playlist: function() {"use strict";
@@ -74,7 +96,7 @@ var OpenSound = {
 			}
 		});
 	},
-	clients: function(){"use strict";
+	/*clients: function(){"use strict";
 		$.ajax({
 			url: "clients/"
 		}).done(function( response ) {
@@ -98,7 +120,7 @@ var OpenSound = {
 				clients.append( '<tr><td><i class="status '+status+'" title="'+status+'"></i> '+response[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response[i].name+'" min="0" max="100" step="1" value="'+response[i].vol+'"></td><td><input type="checkbox" class="device-status" data-devicename="'+response[i].name+'"'+((response[i].status===1)?' checked':'')+'></td></tr>' );
 			}
 		});
-	},
+	},*/
 	file: function(file){"use strict";
 		$.ajax({
 			url: "file/"+file
@@ -241,9 +263,10 @@ $(document).ready(function() {
 
 	// Request server data
 	OpenSound.playlist();
-	OpenSound.clients(); // TODO: remove once we do this in status() hash check
+	//OpenSound.clients(); // TODO: remove once we do this in status() hash check
 	OpenSound.status();
 
 	// Set status timer
 	setInterval(function() {OpenSound.status();}, OpenSound.config.interval*1000);
+
 });
