@@ -62,10 +62,10 @@ We are currently focusing on getting a prototype functioning. These features are
 
 ### Setup
 
-Our main priority is to avoid any setup at all and keep it super simple to start using OpenSound:
+Our main priority is to avoid any setup at all and keep it super simple to start using OpenSound so here's the 5 minute setup:
 
 1. Start your web server in a computer with a music library
-2. Open <code>config.php</code> and change the music folder path
+2. Open <code>config.php</code> and change the music folder path to where you have some MP3 files
 3. Open the URL of the server in other devices (ie. <code>http://192.168.1.23/opensound/</code> )
 4. Add songs to the playlist and press Play
 
