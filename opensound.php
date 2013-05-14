@@ -75,11 +75,13 @@ class OpenSound {
 			$fdb->set($db);
 		}
 
-		// Check if client is already in the list or add him
+		// Check if client is already in the list and update last seen, add him or delete him
 		if ($client) {
 			$clientexists = false;
 			foreach($db['clients'] as $key => $value) {
 				if ($value['name'] == $client) {
+					// update lastseen
+					$db['clients'][$key]['lastseen'] = time();
 					$clientexists = true;
 				}
 			}
@@ -96,7 +98,6 @@ class OpenSound {
 
 		// TODO: update song pos
 
-		// TODO: update lastseen
 
 		// TODO: remove inactive clients		
 
@@ -106,6 +107,7 @@ class OpenSound {
 
 
 	public function paramUpdate($param, $value) {
+		// allow multiple changes (sending an array)
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
@@ -132,7 +134,7 @@ class OpenSound {
 		$db = $fdb->get();
 		foreach($db['clients'] as $key => $value) {
 			if ($value['name']==$client) {
-				$db['clients'][$key]['status'] = $status;
+				$db['clients'][$key]['status'] = (string)$status;
 				$fdb->set($db);
 				return array('status' => 1);
 			}
