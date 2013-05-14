@@ -122,6 +122,7 @@ OpenSound = {
 		});
 	},
 	play: function(file){"use strict";
+		if (typeof file === 'undefined') file = '';
 		$.ajax({
 			url: "play/"+file
 		}).done(function( response ) {
