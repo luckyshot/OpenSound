@@ -106,12 +106,14 @@ class OpenSound {
 	}
 
 
-	public function paramUpdate($param, $value) {
+	public function paramUpdate($array) {
 		// allow multiple changes (sending an array)
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
-		$db[$param] = $value;
+		foreach ($array as $key => $value) {
+			$db[$key] = $value;
+		}
 		return $fdb->set($db);
 	}
 
@@ -132,9 +134,9 @@ class OpenSound {
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
-		foreach($db['clients'] as $key => $value) {
+		foreach($db['clients'] as $key => &$value) {
 			if ($value['name']==$client) {
-				$db['clients'][$key]['status'] = (string)$status;
+				$value['status'] = (string)$status;
 				$fdb->set($db);
 				return array('status' => 1);
 			}

@@ -48,9 +48,11 @@ if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'play') {
 	// Change status to play and get $request[value] for song filename
-	$os->paramUpdate('song', $_REQUEST['param2']);
-	$os->paramUpdate('pos', '0');
-	$os->paramUpdate('status', '1');
+	$os->paramUpdate(array(
+		'song' => $_REQUEST['param2'],
+		'pos' => '0',
+		'status' => '1',
+	));
 	
 	header('Content-type: application/json');
 	echo json_encode(array('status'=>'1'), true);
@@ -59,19 +61,19 @@ if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'pause') {
 	// Change status to pause
 	header('Content-type: application/json');
-	echo json_encode($os->paramUpdate('status', '0'), true);
+	echo json_encode($os->paramUpdate(array('status' => '0')), true);
 
 
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'pos') {
 	// Change position in seconds
 	// Calculate latency and increase seconds by 1-2 to improve sync
 	header('Content-type: application/json');
-	echo json_encode($os->paramUpdate('pos', $_REQUEST['param2']), true);
+	echo json_encode($os->paramUpdate(array('pos' => $_REQUEST['param2'])), true);
 
 
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'vol') {
 	header('Content-type: application/json');
-	echo json_encode($os->paramUpdate('vol', $_REQUEST['param2']), true);
+	echo json_encode($os->paramUpdate(array('vol' => $_REQUEST['param2'])), true);
 
 
 }else{
