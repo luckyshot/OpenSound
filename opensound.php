@@ -105,13 +105,12 @@ class OpenSound {
 	}
 
 
-	public function statusUpdate($param, $value) {
+	public function paramUpdate($param, $value) {
 		require('php-file-database.php');
 		$fdb = new FileDatabase('opensound');
 		$db = $fdb->get();
 		$db[$param] = $value;
-		$fdb->set($db);
-		return array('status' => 1);
+		return $fdb->set($db);
 	}
 
 
@@ -155,6 +154,7 @@ class OpenSound {
 		}
 		return array('status' => 0, 'error'=>'clientnotfound', 'msg' => 'The client could not be found');
 	}
+
 
 
 }
