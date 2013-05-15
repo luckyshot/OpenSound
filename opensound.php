@@ -30,12 +30,14 @@ class OpenSound {
 	public function file($filename) {
 		global $config;
 		// Returns MP3 file with appropriate headers
+		// TODO: need to enable byte range requests, if done through Apache it is automatic but through
+		// PHP we need the PECL extension which in MAMP requires XCode and other stuff to recompile PHP...
 		if(file_exists($config['path'].'/'.$filename)) {
 			header('Content-Type: audio/mpeg');
 			header('Content-Disposition: filename="'.$filename.'"');
 			header('Content-length: '.filesize($config['path'].'/'.$filename));
 			header('Cache-Control: no-cache');
-			header("Content-Transfer-Encoding: chunked"); 
+			//header("Content-Transfer-Encoding: chunked"); 
 
 			readfile($config['path'].'/'.$filename);
 		}else{
@@ -96,12 +98,14 @@ class OpenSound {
 			}
 		}
 
-		// TODO: update song pos
-
 
 		// TODO: remove inactive clients		
 
+		// Save changes
 		$fdb->set($db);
+
+		// update song pos
+		$db['pos'] = $db['pos'] + microtime(true) - $db['started'];
 		return $db;
 	}
 
