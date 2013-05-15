@@ -14,8 +14,8 @@ class OpenSound {
 
 	public function files($dir = ".", $ext = 'mp3') {
 		// Returns array of files (JSON should be done in index.php)
-		$files = array();
-		if ($handle = opendir($dir)) {
+		$files = array();		
+		if ( is_dir($dir) && $handle = opendir($dir)) {
 			while (false !== ($file = readdir($handle))) {
 				if ($file != "." && $file != ".." && strtolower(substr($file, strrpos($file, '.') + 1)) == $ext) {
 					array_push($files, $file);
@@ -27,9 +27,11 @@ class OpenSound {
 	}
 
 
+	// Returns MP3 file with appropriate headers
 	public function file($filename) {
 		global $config;
-		// Returns MP3 file with appropriate headers
+		$filename = htmlspecialchars_decode(rawurldecode($filename));
+
 		if(file_exists($config['path'].'/'.$filename)) {
 			
 			// if requesting a range

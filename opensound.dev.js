@@ -43,8 +43,8 @@ var OpenSound = {
 			// Song
 			//audio.play();
 			//audio.pause(); // we just load it now
-			if (audio.src.indexOf(encodeURIComponent(response.song)) < 0) {
-				audio.src = 'file/'+response.song;
+			if (audio.src.indexOf(encodeURIComponent(response.song)) < 0) {				
+				audio.src = 'file/'+encodeURIComponent(response.song);
 			}
 
 			// Playing state
@@ -127,7 +127,7 @@ var OpenSound = {
 	},*/
 	file: function(file){"use strict";
 		$.ajax({
-			url: "file/"+file
+			url: "file/"+encodeURIComponent(file)
 		}).done(function( response ) {
 			console.log(response);
 		});
@@ -171,7 +171,7 @@ var OpenSound = {
 			url: "play/"+file
 		}).done(function( response ) {
 			// TODO: Some code is duplicated in status, unify
-			audio.src = '/file/'+file;
+			audio.src = '/file/'+encodeURIComponent(file);
 			// Song info
 			$('#track').html(response.song);
 			audio.play();
