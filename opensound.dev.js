@@ -3,7 +3,7 @@ var audio = document.getElementById('audio');
 
 var OpenSound = {
 	config: {
-		interval: 500, // seconds
+		interval: 5, // seconds
 		msgtimer: ''
 	},
 	msg: function(msg, css) {"use strict";
@@ -48,9 +48,9 @@ var OpenSound = {
 			}
 			// Position
 			// TODO: need to improve IF to not reposition every time
-			if (audio.currentTime < response.pos) {
-				audio.currentTime = response.pos + localStorage.ping;
-			}
+			//if (audio.currentTime < response.pos) {
+			//	audio.currentTime = response.pos + localStorage.ping;
+			//}
 			//
 			//}else{
 			//	audio.currentTime = response.pos;
