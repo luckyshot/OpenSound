@@ -43,8 +43,8 @@ var OpenSound = {
 			// Song
 			//audio.play();
 			//audio.pause(); // we just load it now
-			if (audio.src.indexOf(encodeURIComponent(response.song)) < 0) {
-				audio.src = 'file/'+response.song;
+			if (audio.src.indexOf(encodeURIComponent(response.song)) < 0) {				
+				audio.src = 'file/'+encodeURIComponent(response.song);
 			}
 			// Position
 			// reposition only if high unsync (2 seconds)
@@ -125,7 +125,7 @@ var OpenSound = {
 	},*/
 	file: function(file){"use strict";
 		$.ajax({
-			url: "file/"+file
+			url: "file/"+encodeURIComponent(file)
 		}).done(function( response ) {
 			console.log(response);
 		});
@@ -168,7 +168,7 @@ var OpenSound = {
 		$.ajax({
 			url: "play/"+file
 		}).done(function( response ) {
-			audio.src = '/file/'+file;
+			audio.src = '/file/'+encodeURIComponent(file);
 			audio.play();
 		});
 	},
