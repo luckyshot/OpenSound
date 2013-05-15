@@ -50,6 +50,7 @@ We are currently focusing on getting a prototype functioning. These features are
 - Cross-fade songs (using two audio tags)
 - P2P (server-less) capability (there's solutions for it although we may need to reccur to Flash)
 - iOS, Android, Firefox OS apps
+- TideSDK?
 
 
 
@@ -318,6 +319,13 @@ There are three kind of messages shown in OpenSound:
 - <code>success</code>: After a user action, notifies of a successful change
 - <code>info</code>: Informs of something, not necessarily a change or an error
 
+
+
+
+
+References
+----------------------
+- http://www.serversideup.net/programming/style-the-html-5-audio-element
 
 
 
