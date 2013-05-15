@@ -3,7 +3,7 @@ var audio = document.getElementById('audio');
 
 var OpenSound = {
 	config: {
-		interval: 5, // seconds
+		interval: 5, // seconds to request new status
 		msgtimer: ''
 	},
 	msg: function(msg, css) {"use strict";
@@ -33,33 +33,35 @@ var OpenSound = {
 		$.ajax({
 			url: "status/"+encodeURIComponent(localStorage.devicename)
 		}).done(function( response ) {
+			
+			console.log(response);
+
 			// Get time again to calculate ping
 			localStorage.ping = (new Date().getTime() - localStorage.ping) / 2;
 			$('#ping').html(localStorage.ping);
 
-			console.log(response);
-
 			// Song
-			console.log(audio.src);
-			console.log('file/'+response.song);
+			//audio.play();
+			//audio.pause(); // we just load it now
 			if (audio.src.indexOf(encodeURIComponent(response.song)) < 0) {
 				audio.src = 'file/'+response.song;
-				audio.play();
 			}
 			// Position
-			// TODO: need to improve IF to not reposition every time
-			//if (audio.currentTime < response.pos) {
-			//	audio.currentTime = response.pos + localStorage.ping;
-			//}
-			//
-			//}else{
-			//	audio.currentTime = response.pos;
-			//}
-			// Playing?
-			(response.status===1) ? audio.play() : audio.pause();
+			// reposition only if high unsync (2 seconds)
+			if (audio.currentTime+2 < response.pos || audio.currentTime-2 > response.pos) {
+				setTimeout(function() {audio.currentTime = response.pos + localStorage.ping/1000;}, 1);
+				//console.log(response.pos +' - '+ localStorage.ping/1000);
+			}
+
+			if (response.status) {
+				audio.play();
+			}
+
+
 			// Volume
 			//$('#vol').val(response.vol);
 			//document.getElementById('audio').volume = response.vol/100;
+
 			// Song info
 			$('#track').html(response.song);
 			//$('#track').html(response.song);
@@ -211,14 +213,14 @@ var OpenSound = {
 		setTimeout(function(){func()}, ms);
 	},
 	nextSong: function() {
-		alert('next song!');
+		console.log('next song!');
 	}
 };
 
 
 // callback when song ends
 $(audio).bind('ended', function(){
-	OpenSound.audio.next();
+	OpenSound.nextSong();
 });
 
 /**
