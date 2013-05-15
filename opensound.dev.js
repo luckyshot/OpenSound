@@ -46,15 +46,17 @@ var OpenSound = {
 			if (audio.src.indexOf(encodeURIComponent(response.song)) < 0) {
 				audio.src = 'file/'+response.song;
 			}
+
+			// Playing state
+			if (response.status) {
+				audio.play();
+			}
+
 			// Position
 			// reposition only if high unsync (2 seconds)
 			if (audio.currentTime+2 < response.pos || audio.currentTime-2 > response.pos) {
 				setTimeout(function() {audio.currentTime = response.pos + localStorage.ping/1000;}, 1);
 				//console.log(response.pos +' - '+ localStorage.ping/1000);
-			}
-
-			if (response.status) {
-				audio.play();
 			}
 
 
@@ -168,7 +170,10 @@ var OpenSound = {
 		$.ajax({
 			url: "play/"+file
 		}).done(function( response ) {
+			// TODO: Some code is duplicated in status, unify
 			audio.src = '/file/'+file;
+			// Song info
+			$('#track').html(response.song);
 			audio.play();
 		});
 	},
@@ -213,7 +218,15 @@ var OpenSound = {
 		setTimeout(function(){func()}, ms);
 	},
 	nextSong: function() {
-		console.log('next song!');
+		var songs = [];
+		$('#playlist>li').each(function() { songs.push($(this).text()) });
+		for (var i = 0; i < songs.length; i++) {
+			console.log($('#track').html() +'-'+ songs[i]);
+			if ($('#track').html() === songs[i]) {
+				OpenSound.play(songs[i+1]);
+				break;
+			}
+		}
 	}
 };
 
