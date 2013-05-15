@@ -51,6 +51,7 @@ if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 	$os->paramUpdate(array(
 		'song' => $_REQUEST['param2'],
 		'pos' => '0',
+		'started' => microtime(true),
 		'status' => '1',
 	));
 	
