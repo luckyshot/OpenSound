@@ -30,8 +30,6 @@ class OpenSound {
 	public function file($filename) {
 		global $config;
 		// Returns MP3 file with appropriate headers
-		// TODO: need to enable byte range requests, if done through Apache it is automatic but through
-		// PHP we need the PECL extension which in MAMP requires XCode and other stuff to recompile PHP...
 		if(file_exists($config['path'].'/'.$filename)) {
 			
 			// if requesting a range
