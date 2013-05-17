@@ -42,27 +42,36 @@ if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 
 // Request playlist
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'playlist') {
+	// TODO: currently just getting the root music folder
 	header('Content-type: application/json');
-	echo json_encode($os->files($config['path'],'mp3'), true);
+	echo json_encode($os->playlist(), true);
+
+
+// Request files in folder
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'browse') {
+	if (!isset($_REQUEST['param2'])) {$_REQUEST['param2'] = '';}
+
+	header('Content-type: application/json');
+	echo json_encode($os->files($config['path'].'/'.$_REQUEST['param2'],'mp3',true), true);
 
 
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'play') {
 	// Change status to play and get $request[value] for song filename
-	$os->paramUpdate(array(
+	header('Content-type: application/json');
+	echo json_encode($os->paramUpdate(array(
 		'song' => $_REQUEST['param2'],
 		'pos' => '0',
 		'started' => microtime(true),
 		'status' => '1',
-	));
-	
-	header('Content-type: application/json');
-	echo json_encode(array('status'=>'1'), true);
+	)), true);
 
 
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'pause') {
 	// Change status to pause
 	header('Content-type: application/json');
-	echo json_encode($os->paramUpdate(array('status' => '0')), true);
+	echo json_encode($os->paramUpdate(array(
+		'status' => '0'
+	)), true);
 
 
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'pos') {
@@ -75,6 +84,11 @@ if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'status') {
 }else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'vol') {
 	header('Content-type: application/json');
 	echo json_encode($os->paramUpdate(array('vol' => $_REQUEST['param2'])), true);
+
+
+}else if (isset($_REQUEST['param1']) && $_REQUEST['param1'] === 'add') {
+	header('Content-type: application/json');
+	echo json_encode($os->add($_REQUEST['param2']), true);
 
 
 }else{

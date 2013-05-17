@@ -12,13 +12,23 @@ class OpenSound {
 		FILES
 	 */
 
-	public function files($dir = ".", $ext = 'mp3') {
-		// Returns array of files (JSON should be done in index.php)
-		$files = array();		
+	// Returns array of files (JSON should be done in index.php)
+	public function files($dir = ".", $ext = 'mp3', $showfolders = false) {
+		$files = array();
 		if ( is_dir($dir) && $handle = opendir($dir)) {
 			while (false !== ($file = readdir($handle))) {
-				if ($file != "." && $file != ".." && strtolower(substr($file, strrpos($file, '.') + 1)) == $ext) {
-					array_push($files, $file);
+				if ($showfolders) {
+					if (
+						$file == ".." OR // folder up
+						strtolower(substr($file, strrpos($file, '.') + 1)) == $ext OR // mp3 files
+						strpos($file, '.') === false // folders
+					) {
+						array_push($files, $file);
+					}
+				}else{
+					if ($file != "." && $file != ".." && strtolower(substr($file, strrpos($file, '.') + 1)) == $ext) {
+						array_push($files, $file);
+					}
 				}
 			}
 			closedir($handle);
@@ -53,6 +63,14 @@ class OpenSound {
 			header('Content-type: application/json');
 			echo json_encode(array('status'=>'error','code'=>404,'msg'=>'File not found'), true);
 		}
+	}
+
+	public function add($file) {
+		require('php-file-database.php');
+		$fdb = new FileDatabase('opensound');
+		$db = $fdb->get();
+		array_push($db['playlist'], $file);
+		return $fdb->set($db);
 	}
 
 
@@ -103,6 +121,7 @@ class OpenSound {
 					'lastseen' => time(),
 					'ping' => '200' // ms
 				));
+				$fdb->set($db);
 			}
 		}
 
@@ -110,7 +129,6 @@ class OpenSound {
 		// TODO: remove inactive clients		
 
 		// Save changes
-		$fdb->set($db);
 
 		// update song pos
 		$db['pos'] = $db['pos'] + microtime(true) - $db['started'];

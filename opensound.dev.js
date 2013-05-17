@@ -27,7 +27,7 @@ var OpenSound = {
 	status: function() {"use strict";
 		// Start ping timer
 		// TODO: Ping is not exactly accurate since request and response times may differ although it's the closest way I can think of right now
-		localStorage.ping = new Date().getTime();
+		var firstping = new Date().getTime();
 
 		// Do AJAX call
 		$.ajax({
@@ -37,7 +37,7 @@ var OpenSound = {
 			console.log(response);
 
 			// Get time again to calculate ping
-			localStorage.ping = (new Date().getTime() - localStorage.ping) / 2;
+			localStorage.ping = new Date().getTime() - firstping;
 			$('#ping').html(localStorage.ping);
 
 			// Song
@@ -54,8 +54,12 @@ var OpenSound = {
 
 			// Position
 			// reposition only if high unsync (2 seconds)
-			if (audio.currentTime+2 < response.pos || audio.currentTime-2 > response.pos) {
-				setTimeout(function() {audio.currentTime = response.pos + localStorage.ping/1000;}, 1);
+			if (audio.currentTime < response.pos+2 || audio.currentTime > response.pos-2) {
+				try {
+					audio.currentTime = response.pos + localStorage.ping/1000;
+				}catch(e){
+					console.log(e);
+				}
 				//console.log(response.pos +' - '+ localStorage.ping/1000);
 			}
 
@@ -68,6 +72,12 @@ var OpenSound = {
 			$('#track').html(response.song);
 			//$('#track').html(response.song);
 
+			// Update playlist
+			$('#playlist').empty();
+			for(var i in response.playlist) {
+				$('#playlist').append('<li>'+response.playlist[i]+'</li>');
+			}
+
 			// Update clients
 			var clients = $('#clients>tbody'),
 				status;
@@ -78,26 +88,17 @@ var OpenSound = {
 
 				if (response.clients[i].name === localStorage.devicename) {
 					status = 'you';
-				}else if (status - response.clients[i].lastseen > 30) {
+				}else if (status - response.clients[i].lastseen > 11) {
 					status = 'offline';
-				}else if (status - response.clients[i].lastseen < 10) {
+				}else if (status - response.clients[i].lastseen < 6) {
 					status = 'online';
 				}else{
 					status = 'idle';
 				}
 
-				clients.append( '<tr><td><i class="status '+status+'" title="'+status+'"></i> '+response.clients[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response.clients[i].name+'" min="0" max="100" step="1" value="'+response.clients[i].vol+'"></td><td><input type="checkbox" id="device-status-'+i+'" class="device-status" data-devicename="'+response.clients[i].name+'"'+((response.clients[i].status===1)?' checked':'')+'><label for="device-status-'+i+'"></label></td></tr>' );
+				clients.append( '<tr><td><i class="status '+status+'" title="'+status+'"></i>&nbsp;'+response.clients[i].name+'</td><td><input type="range" class="device-vol" data-devicename="'+response.clients[i].name+'" min="0" max="100" step="1" value="'+response.clients[i].vol+'"></td><td><input type="checkbox" id="device-status-'+i+'" class="device-status" data-devicename="'+response.clients[i].name+'"'+((response.clients[i].status===1)?' checked':'')+'><label for="device-status-'+i+'"></label></td></tr>' );
 			}
 
-		});
-	},
-	playlist: function() {"use strict";
-		$.ajax({
-			url: "playlist"
-		}).done(function( response ) {
-			for(var i in response) {
-				$('#playlist').append('<li>'+response[i]+'</li>');
-			}
 		});
 	},
 	/*clients: function(){"use strict";
@@ -132,13 +133,15 @@ var OpenSound = {
 			console.log(response);
 		});
 	},
-	browse: function(path){"use strict";
+	browse: function(path) {"use strict";
+		if (typeof path === 'undefined') {path = '';}
+		
 		$.ajax({
 			url: "browse/"+path
 		}).done(function( response ) {
-			$('#path').html( response.path );
-			$('#browser').html('<li>..</li>');
-			for(var i in response.files) {
+			$('#path').html( path );
+			$('#browser').empty();
+			for(var i in response) {
 				$('#browser').append('<li>'+response[i]+'</li>');
 			}
 		});
@@ -242,7 +245,13 @@ $(audio).bind('ended', function(){
 $('#playlist').on('click', 'li', function() {
 	OpenSound.play( encodeURIComponent($(this).html()) );
 });
-
+$('#browser').on('click', 'li', function() {
+	if ($(this).html().indexOf('.mp3') > 0) {
+		OpenSound.add( $('#path').html()+$(this).html() );
+	}else{
+		OpenSound.browse( encodeURIComponent( $(this).html()) );		
+	}
+});
 
 $('#clients').on('mouseup', 'input.device-vol', function() {
 	if ($(this).data('devicename')===localStorage.devicename) {
@@ -287,8 +296,7 @@ $(document).ready(function() {
 	$('#devicename').val(localStorage.devicename);
 
 	// Request server data
-	OpenSound.playlist();
-	//OpenSound.clients(); // TODO: remove once we do this in status() hash check
+	OpenSound.browse('');
 	OpenSound.status();
 
 	// Set status timer
