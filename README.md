@@ -1,6 +1,8 @@
 OpenSound: Free Open-Source HTML5 Wireless Multi-Room Music System
 ======================
 
+![screenshot](https://cloud.githubusercontent.com/assets/141241/10775240/075e1a88-7d07-11e5-81d2-4f9599176553.png)
+
 OpenSound allows you to play music synchronized across multiple devices (laptops, computers, smartphones, iPods&hellip;), so you can listen to music in multiple rooms: at home, office or anywhere else.
 
 
